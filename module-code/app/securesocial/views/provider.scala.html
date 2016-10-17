@@ -1,7 +1,7 @@
 @(providerId: String, loginForm: Option[Form[(String, String)]] = None)(implicit request: RequestHeader, messages: Messages, env: securesocial.plugin.RuntimeEnvironment)
 
 @import securesocial.plugin.providers.UsernamePasswordProvider
-@import securesocial.plugin.AuthenticationMethod._
+@import securesocial.core.AuthenticationMethod._
 @import play.api.Logger
 @import helper._
 @import play.api.Play

@@ -16,6 +16,7 @@
  */
 package securesocial.plugin
 
+import securesocial.core._
 import play.api.mvc.{ Result, AnyContent, Request }
 import play.api.Play
 import concurrent.Future

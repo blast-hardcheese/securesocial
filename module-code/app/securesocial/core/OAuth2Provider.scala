@@ -23,6 +23,7 @@ import play.api.Play
 import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json }
 import play.api.libs.ws.WSResponse
 import play.api.mvc._
+import securesocial.core._
 import securesocial.plugin.services.{ CacheService, HttpService, RoutesService }
 
 import scala.collection.JavaConversions._

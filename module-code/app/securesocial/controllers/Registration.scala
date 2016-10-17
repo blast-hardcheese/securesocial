@@ -23,6 +23,7 @@ import play.api.data._
 import play.api.i18n.Messages
 import play.filters.csrf._
 import play.api.mvc.Action
+import securesocial.core._
 import securesocial.plugin._
 import securesocial.plugin.authenticator.CookieAuthenticator
 import securesocial.plugin.providers.UsernamePasswordProvider

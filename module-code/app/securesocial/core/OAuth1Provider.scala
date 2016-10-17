@@ -22,6 +22,7 @@ import play.api.mvc.{ AnyContent, Request }
 import play.api.mvc.Results.Redirect
 import oauth.signpost.exception.OAuthException
 import scala.concurrent.{ ExecutionContext, Future }
+import securesocial.core._
 import securesocial.plugin.services.{ HttpService, RoutesService, CacheService }
 import play.api.libs.oauth.OAuth
 import play.api.libs.oauth.ServiceInfo

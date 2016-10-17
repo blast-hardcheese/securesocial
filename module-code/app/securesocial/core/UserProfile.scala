@@ -16,6 +16,8 @@
  */
 package securesocial.plugin
 
+import securesocial.core._
+
 /**
  * A minimal user profile
  */

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.plugin
+package securesocial.core
 
 /**
  * A class representing an authentication method

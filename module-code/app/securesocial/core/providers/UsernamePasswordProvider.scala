@@ -22,6 +22,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import securesocial.controllers.ViewTemplates
+import securesocial.core._
 import securesocial.plugin.AuthenticationResult.{ Authenticated, NavigationFlow }
 import securesocial.plugin._
 import securesocial.plugin.providers.utils.PasswordHasher
