@@ -14,10 +14,10 @@
  * limitations under the License.
  *
  */
-package securesocial.core.services
+package securesocial.plugin.services
 
 import play.api.mvc.{ Call, RequestHeader }
-import securesocial.core.IdentityProvider
+import securesocial.plugin.IdentityProvider
 
 /**
  * A RoutesService that resolves the routes for some of the pages
@@ -100,7 +100,7 @@ object RoutesService {
    * defined by the built in controllers.
    */
   class Default extends RoutesService {
-    private val logger = play.api.Logger("securesocial.core.DefaultRoutesService")
+    private val logger = play.api.Logger("securesocial.plugin.DefaultRoutesService")
     lazy val conf = play.api.Play.current.configuration
 
     val FaviconKey = "securesocial.faviconPath"

@@ -14,15 +14,15 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.libs.F;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 import scala.Option;
-import securesocial.core.RuntimeEnvironment;
-import securesocial.core.authenticator.Authenticator;
+import securesocial.plugin.RuntimeEnvironment;
+import securesocial.plugin.authenticator.Authenticator;
 
 import static play.libs.F.Promise;
 import javax.inject.Inject;
@@ -39,7 +39,7 @@ import javax.inject.Inject;
  *      String name = user == null ? "guest" : user.displayName;
  *      return ok("Hello " + name);
  *  }
- * @see securesocial.core.java.UserAwareAction
+ * @see securesocial.plugin.java.UserAwareAction
  */
 public class UserAware extends Action<UserAwareAction> {
     RuntimeEnvironment env;

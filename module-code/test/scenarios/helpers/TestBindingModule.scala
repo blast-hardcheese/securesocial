@@ -12,7 +12,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{ RequestHeader, Handler }
 import play.api.test._
 
-import securesocial.core.{ BasicProfile, RuntimeEnvironment }
+import securesocial.plugin.{ BasicProfile, RuntimeEnvironment }
 
 import scala.concurrent.Future
 import scala.runtime.AbstractPartialFunction

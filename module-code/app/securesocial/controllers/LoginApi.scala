@@ -19,14 +19,14 @@ package securesocial.controllers
 import javax.inject.Inject
 
 import org.joda.time.DateTime
-import securesocial.core._
+import securesocial.plugin._
 import play.api.mvc.Action
 import scala.concurrent.{ ExecutionContext, Future }
-import securesocial.core.SignUpEvent
-import securesocial.core.AuthenticationResult.Authenticated
-import securesocial.core.LoginEvent
-import securesocial.core.BasicProfile
-import securesocial.core.services.SaveMode
+import securesocial.plugin.SignUpEvent
+import securesocial.plugin.AuthenticationResult.Authenticated
+import securesocial.plugin.LoginEvent
+import securesocial.plugin.BasicProfile
+import securesocial.plugin.services.SaveMode
 
 /**
  * A default controller that uses the BasicProfile as the application user type.
@@ -84,7 +84,7 @@ trait BaseLoginApi extends SecureSocial {
   }
 
   def logout = Action.async { implicit request =>
-    import securesocial.core.utils._
+    import securesocial.plugin.utils._
 
     env.authenticatorService.fromRequest(request).flatMap {
       case Some(authenticator) => Ok("").discardingAuthenticator(authenticator)

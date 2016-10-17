@@ -16,12 +16,12 @@
  * limitations under the License.
  *
  */
-package securesocial.core.providers
+package securesocial.plugin.providers
 
 import play.api.libs.ws.WSResponse
 import play.api.libs.json.{ Reads, Json, JsValue }
-import securesocial.core._
-import securesocial.core.services.{ CacheService, RoutesService }
+import securesocial.plugin._
+import securesocial.plugin.services.{ CacheService, RoutesService }
 
 import scala.concurrent.Future
 

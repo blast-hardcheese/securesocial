@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.services
+package securesocial.plugin.services
 
 import scala.concurrent.{ ExecutionContext, Future }
 

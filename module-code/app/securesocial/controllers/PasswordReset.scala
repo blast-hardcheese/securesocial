@@ -23,10 +23,10 @@ import play.api.data.Forms._
 import play.api.i18n.Messages
 import play.filters.csrf._
 import play.api.mvc.Action
-import securesocial.core._
-import securesocial.core.providers.UsernamePasswordProvider
-import securesocial.core.providers.utils.PasswordValidator
-import securesocial.core.services.SaveMode
+import securesocial.plugin._
+import securesocial.plugin.providers.UsernamePasswordProvider
+import securesocial.plugin.providers.utils.PasswordValidator
+import securesocial.plugin.services.SaveMode
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 

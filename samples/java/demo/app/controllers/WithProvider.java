@@ -16,7 +16,7 @@
  */
 package controllers;
 
-import securesocial.core.java.Authorization;
+import securesocial.plugin.java.Authorization;
 import service.DemoUser;
 
 /**

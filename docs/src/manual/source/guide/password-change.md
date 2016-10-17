@@ -11,7 +11,7 @@ Assuming your template received a `user` parameter with an instance of `Identity
 
 	:::html
 	@user.passwordInfo.map { info =>
-        <a class="btn" href="@securesocial.core.providers.utils.RoutesHelper.changePasswordPage.absoluteURL(IdentityProvider.sslEnabled)">
+        <a class="btn" href="@securesocial.plugin.providers.utils.RoutesHelper.changePasswordPage.absoluteURL(IdentityProvider.sslEnabled)">
         	Change Password
         </a>
     }
@@ -19,12 +19,12 @@ Assuming your template received a `user` parameter with an instance of `Identity
 Make sure to add the following import statement in your template:
 
 	:::scala
-	@import securesocial.core.IdentityProvider
+	@import securesocial.plugin.IdentityProvider
 
 And add an implicit `RequestHeader` parameter to it too.  For example:
 
 	:::scala
-	@(user: securesocial.core.Identity)(implicit request: RequestHeader)
+	@(user: securesocial.plugin.Identity)(implicit request: RequestHeader)
 
 
 ### Java
@@ -33,7 +33,7 @@ For Java applications the syntax is a little bit different.  Assuming your templ
 
     :::html
     @user.passwordInfo.map { info =>
-        <a class="btn" href="@securesocial.core.providers.utils.RoutesHelper.changePasswordPage.absoluteURL(Implicit.request(), IdentityProvider.sslEnabled)">
+        <a class="btn" href="@securesocial.plugin.providers.utils.RoutesHelper.changePasswordPage.absoluteURL(Implicit.request(), IdentityProvider.sslEnabled)">
         	Change Password
         </a>
     }
@@ -41,5 +41,5 @@ For Java applications the syntax is a little bit different.  Assuming your templ
 Make sure to add the following import statements in your template:
 
 	:::java
-	@import securesocial.core.IdentityProvider
+	@import securesocial.plugin.IdentityProvider
 	@import Http.Context.Implicit    

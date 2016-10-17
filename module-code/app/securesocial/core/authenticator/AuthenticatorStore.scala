@@ -14,10 +14,10 @@
  * limitations under the License.
  *
  */
-package securesocial.core.authenticator
+package securesocial.plugin.authenticator
 
 import scala.concurrent.{ ExecutionContext, Future }
-import securesocial.core.services.CacheService
+import securesocial.plugin.services.CacheService
 import scala.reflect.ClassTag
 
 /**

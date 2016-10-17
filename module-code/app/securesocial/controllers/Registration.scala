@@ -23,11 +23,11 @@ import play.api.data._
 import play.api.i18n.Messages
 import play.filters.csrf._
 import play.api.mvc.Action
-import securesocial.core._
-import securesocial.core.authenticator.CookieAuthenticator
-import securesocial.core.providers.UsernamePasswordProvider
-import securesocial.core.providers.utils._
-import securesocial.core.services.SaveMode
+import securesocial.plugin._
+import securesocial.plugin.authenticator.CookieAuthenticator
+import securesocial.plugin.providers.UsernamePasswordProvider
+import securesocial.plugin.providers.utils._
+import securesocial.plugin.services.SaveMode
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
@@ -183,7 +183,7 @@ trait BaseRegistration extends MailTokenBasedOperations {
                   }
                 }.getOrElse(Future.successful(newUser))
 
-                import securesocial.core.utils._
+                import securesocial.plugin.utils._
                 val result = for (
                   toSave <- withAvatar;
                   saved <- env.userService.save(toSave, SaveMode.SignUp);

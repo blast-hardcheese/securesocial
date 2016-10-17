@@ -16,7 +16,7 @@
  */
 
 import play.GlobalSettings;
-import securesocial.core.RuntimeEnvironment;
+import securesocial.plugin.RuntimeEnvironment;
 import service.MyEnvironment;
 
 public class Global extends GlobalSettings {

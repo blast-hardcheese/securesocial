@@ -1,4 +1,4 @@
-package securesocial.core
+package securesocial.plugin
 
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
@@ -7,7 +7,7 @@ import helpers.MockHttpService
 import play.api.libs.oauth._
 import oauth.signpost.exception.OAuthException
 import play.api.libs.json.Json
-import securesocial.core.services.HttpService
+import securesocial.plugin.services.HttpService
 import play.api.libs.oauth.ServiceInfo
 import play.api.libs.oauth.OAuth
 import play.api.libs.oauth.RequestToken

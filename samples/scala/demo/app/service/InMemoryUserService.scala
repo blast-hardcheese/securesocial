@@ -17,10 +17,10 @@
 package service
 
 import play.api.Logger
-import securesocial.core._
-import securesocial.core.providers.{ UsernamePasswordProvider, MailToken }
+import securesocial.plugin._
+import securesocial.plugin.providers.{ UsernamePasswordProvider, MailToken }
 import scala.concurrent.Future
-import securesocial.core.services.{ UserService, SaveMode }
+import securesocial.plugin.services.{ UserService, SaveMode }
 
 /**
  * A Sample In Memory user service in Scala

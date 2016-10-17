@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import _root_.java.util.UUID
 import play.api.libs.oauth._
@@ -22,7 +22,7 @@ import play.api.mvc.{ AnyContent, Request }
 import play.api.mvc.Results.Redirect
 import oauth.signpost.exception.OAuthException
 import scala.concurrent.{ ExecutionContext, Future }
-import securesocial.core.services.{ HttpService, RoutesService, CacheService }
+import securesocial.plugin.services.{ HttpService, RoutesService, CacheService }
 import play.api.libs.oauth.OAuth
 import play.api.libs.oauth.ServiceInfo
 import play.api.libs.oauth.RequestToken
@@ -51,7 +51,7 @@ object OAuth1Client {
    * @param serviceInfo
    */
   class Default(val serviceInfo: ServiceInfo, val httpService: HttpService)(implicit val executionContext: ExecutionContext) extends OAuth1Client {
-    private[core] val client = OAuth(serviceInfo, use10a = true)
+    private[plugin] val client = OAuth(serviceInfo, use10a = true)
     override def redirectUrl(token: String): String = client.redirectUrl(token)
 
     private def withFuture(call: => Either[OAuthException, RequestToken]): Future[RequestToken] = Future {

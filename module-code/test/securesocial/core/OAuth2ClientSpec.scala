@@ -1,9 +1,9 @@
-package securesocial.core
+package securesocial.plugin
 
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
-import securesocial.core.services.HttpService
+import securesocial.plugin.services.HttpService
 import helpers.MockHttpService
 import scala.concurrent.Future
 import play.api.libs.oauth.{ ConsumerKey, ServiceInfo }

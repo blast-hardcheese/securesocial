@@ -14,11 +14,11 @@
  * limitations under the License.
  *
  */
-package securesocial.core.services
+package securesocial.plugin.services
 
 import scala.concurrent.Future
-import securesocial.core.{ PasswordInfo, BasicProfile }
-import securesocial.core.providers.MailToken
+import securesocial.plugin.{ PasswordInfo, BasicProfile }
+import securesocial.plugin.providers.MailToken
 
 trait UserService[U] {
 

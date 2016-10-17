@@ -1,5 +1,5 @@
 9999:db.InMemoryUserService
-10000:securesocial.core.providers.TwitterProvider
-10001:securesocial.core.providers.FacebookProvider
-10002:securesocial.core.providers.GoogleProvider
+10000:securesocial.plugin.providers.TwitterProvider
+10001:securesocial.plugin.providers.FacebookProvider
+10002:securesocial.plugin.providers.GoogleProvider
 

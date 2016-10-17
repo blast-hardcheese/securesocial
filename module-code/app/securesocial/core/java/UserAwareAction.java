@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 
 import play.mvc.With;

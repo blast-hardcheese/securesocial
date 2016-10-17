@@ -1,6 +1,6 @@
-@(loginForm: Form[(String,String)], errorMsg: Option[String] = None)(implicit request: RequestHeader, messages: Messages, env:securesocial.core.RuntimeEnvironment)
+@(loginForm: Form[(String,String)], errorMsg: Option[String] = None)(implicit request: RequestHeader, messages: Messages, env:securesocial.plugin.RuntimeEnvironment)
 
-@import securesocial.core.providers.UsernamePasswordProvider.UsernamePassword
+@import securesocial.plugin.providers.UsernamePasswordProvider.UsernamePassword
 
 @securesocial.views.html.main(Messages("securesocial.login.title")) {
     <div class="page-header">

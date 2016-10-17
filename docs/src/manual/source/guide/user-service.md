@@ -45,8 +45,8 @@ For Scala you need to extend the `UserServicePlugin`. For example:
 	:::scala
 
 	import play.api.Application
-	import securesocial.core.{Identity, IdentityId, UserServicePlugin}
-	import securesocial.core.providers.Token
+	import securesocial.plugin.{Identity, IdentityId, UserServicePlugin}
+	import securesocial.plugin.providers.Token
 
 
 	class MyUserService(application: Application) extends UserServicePlugin(application) {

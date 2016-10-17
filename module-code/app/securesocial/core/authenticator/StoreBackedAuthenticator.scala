@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.authenticator
+package securesocial.plugin.authenticator
 
 import org.joda.time.DateTime
 import scala.annotation.meta.getter

@@ -18,8 +18,8 @@ package securesocial.controllers
 
 import javax.inject.Inject
 
-import securesocial.core._
-import securesocial.core.utils._
+import securesocial.plugin._
+import securesocial.plugin.utils._
 import play.api.Play
 import Play.current
 import providers.UsernamePasswordProvider

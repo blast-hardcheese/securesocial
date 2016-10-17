@@ -14,11 +14,11 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import play.api.mvc.{ Cookies, Session, Result }
 import play.api.http.HeaderNames
-import securesocial.core.authenticator.Authenticator
+import securesocial.plugin.authenticator.Authenticator
 
 /**
  * Utility methods

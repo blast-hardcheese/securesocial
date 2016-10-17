@@ -18,13 +18,13 @@ package securesocial.controllers
 
 import javax.inject.Inject
 
-import securesocial.core._
-import securesocial.core.SecureSocial._
+import securesocial.plugin._
+import securesocial.plugin.SecureSocial._
 import play.api.mvc.Result
 import play.api.Play
 import play.api.data.Form
 import play.api.data.Forms._
-import securesocial.core.providers.utils.PasswordValidator
+import securesocial.plugin.providers.utils.PasswordValidator
 import play.api.i18n.{ I18nSupport, Messages }
 import scala.concurrent.{ Await, ExecutionContext, Future }
 import play.filters.csrf._

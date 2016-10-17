@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 /**
  * The interface that defines the authorization implementation.

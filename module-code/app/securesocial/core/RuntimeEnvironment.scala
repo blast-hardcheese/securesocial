@@ -1,10 +1,10 @@
-package securesocial.core
+package securesocial.plugin
 
 import securesocial.controllers.{ MailTemplates, ViewTemplates }
-import securesocial.core.authenticator._
-import securesocial.core.providers._
-import securesocial.core.providers.utils.{ Mailer, PasswordHasher, PasswordValidator }
-import securesocial.core.services._
+import securesocial.plugin.authenticator._
+import securesocial.plugin.providers._
+import securesocial.plugin.providers.utils.{ Mailer, PasswordHasher, PasswordValidator }
+import securesocial.plugin.services._
 
 import scala.concurrent.ExecutionContext
 import scala.collection.immutable.ListMap

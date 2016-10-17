@@ -25,8 +25,8 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import play.api.i18n.Messages
 import play.api.mvc.{ RequestHeader, Result }
-import securesocial.core.SecureSocial
-import securesocial.core.providers.MailToken
+import securesocial.plugin.SecureSocial
+import securesocial.plugin.providers.MailToken
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 

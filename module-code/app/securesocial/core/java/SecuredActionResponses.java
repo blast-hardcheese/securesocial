@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.twirl.api.Html;
 import play.libs.F;
@@ -25,7 +25,7 @@ import play.mvc.Result;
  * An interface that defines the responses that will be sent wheen the invoker is not authenticated or
  * authorized to execute a protected action.
  *
- * @see securesocial.core.java.DefaultSecuredActionResponses
+ * @see securesocial.plugin.java.DefaultSecuredActionResponses
  */
 public interface SecuredActionResponses {
     Html notAuthorizedPage(Http.Context ctx);

@@ -14,9 +14,9 @@
  * limitations under the License.
  *
  */
-package securesocial.core.providers.utils
+package securesocial.plugin.providers.utils
 
-import securesocial.core.PasswordInfo
+import securesocial.plugin.PasswordInfo
 import org.mindrot.jbcrypt._
 
 /**

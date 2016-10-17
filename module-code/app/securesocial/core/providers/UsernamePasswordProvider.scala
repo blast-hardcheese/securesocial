@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.providers
+package securesocial.plugin.providers
 
 import org.joda.time.DateTime
 import play.api.Play.current
@@ -22,10 +22,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import securesocial.controllers.ViewTemplates
-import securesocial.core.AuthenticationResult.{ Authenticated, NavigationFlow }
-import securesocial.core._
-import securesocial.core.providers.utils.PasswordHasher
-import securesocial.core.services.{ AvatarService, UserService }
+import securesocial.plugin.AuthenticationResult.{ Authenticated, NavigationFlow }
+import securesocial.plugin._
+import securesocial.plugin.providers.utils.PasswordHasher
+import securesocial.plugin.services.{ AvatarService, UserService }
 
 import scala.concurrent.{ ExecutionContext, Future }
 

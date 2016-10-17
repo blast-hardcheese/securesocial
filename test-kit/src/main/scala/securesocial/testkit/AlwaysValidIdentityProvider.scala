@@ -1,9 +1,9 @@
 package securesocial.testkit
 
 import play.api.Logger
-import securesocial.core._
+import securesocial.plugin._
 import play.api.mvc.{Result, Request}
-import securesocial.core.IdentityId
+import securesocial.plugin.IdentityId
 
 class AlwaysValidIdentityProvider(app:play.api.Application) extends IdentityProvider(app){
   val logger = Logger("securesocial.stubs.AlwaysValidIdentityProvider")

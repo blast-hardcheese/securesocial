@@ -1,5 +1,5 @@
 import com.google.inject.AbstractModule;
-import securesocial.core.RuntimeEnvironment;
+import securesocial.plugin.RuntimeEnvironment;
 import service.MyEnvironment;
 
 

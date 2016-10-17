@@ -18,12 +18,12 @@ package service;
 
 import play.Logger;
 import play.libs.F;
-import securesocial.core.BasicProfile;
-import securesocial.core.PasswordInfo;
-import securesocial.core.services.SaveMode;
-import securesocial.core.java.BaseUserService;
-import securesocial.core.java.Token;
-import securesocial.core.providers.UsernamePasswordProvider;
+import securesocial.plugin.BasicProfile;
+import securesocial.plugin.PasswordInfo;
+import securesocial.plugin.services.SaveMode;
+import securesocial.plugin.java.BaseUserService;
+import securesocial.plugin.java.Token;
+import securesocial.plugin.providers.UsernamePasswordProvider;
 
 import java.util.HashMap;
 import java.util.Iterator;

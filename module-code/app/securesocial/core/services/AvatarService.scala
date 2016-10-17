@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.services
+package securesocial.plugin.services
 
 import scala.concurrent.{ ExecutionContext, Future }
 
@@ -34,7 +34,7 @@ object AvatarService {
   class Default(httpService: HttpService)(implicit val executionContext: ExecutionContext) extends AvatarService {
     import _root_.java.security.MessageDigest
 
-    private val logger = play.api.Logger("securesocial.core.providers.utils.AvatarService.Default")
+    private val logger = play.api.Logger("securesocial.plugin.providers.utils.AvatarService.Default")
 
     val GravatarUrl = "http://www.gravatar.com/avatar/%s?d=404"
     val Md5 = "MD5"

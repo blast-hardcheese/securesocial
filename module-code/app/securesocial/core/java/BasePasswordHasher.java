@@ -14,9 +14,9 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
-import securesocial.core.providers.utils.PasswordHasher;
+import securesocial.plugin.providers.utils.PasswordHasher;
 
 /**
  * Base class for all password hashers written in Java.

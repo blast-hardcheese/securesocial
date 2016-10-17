@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.mvc.With;
 
@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 /**
  * An annotation to mark actions as protected by SecureSocial
  *
- * @see securesocial.core.java.Secured
+ * @see securesocial.plugin.java.Secured
  */
 @With(Secured.class)
 @Target({ElementType.TYPE, ElementType.METHOD})
@@ -41,7 +41,7 @@ public @interface SecuredAction {
     /**
      * The responses sent when the invoker is not authorized or authenticated
      *
-     * @see securesocial.core.java.DefaultSecuredActionResponses
+     * @see securesocial.plugin.java.DefaultSecuredActionResponses
      */
     Class<? extends SecuredActionResponses> responses() default DefaultSecuredActionResponses.class;
 

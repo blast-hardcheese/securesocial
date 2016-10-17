@@ -14,18 +14,18 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import play.api.mvc._
 import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.http.HeaderNames
-import securesocial.core.SecureSocial.{ RequestWithUser, SecuredRequest }
+import securesocial.plugin.SecureSocial.{ RequestWithUser, SecuredRequest }
 import scala.concurrent.{ ExecutionContext, Future }
 import play.twirl.api.Html
 
-import securesocial.core.utils._
-import securesocial.core.authenticator._
+import securesocial.plugin.utils._
+import securesocial.plugin.authenticator._
 import play.api.mvc.Result
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
@@ -90,7 +90,7 @@ trait SecureSocial extends Controller {
       extends ActionBuilder[({ type R[A] = SecuredRequest[A, env.U] })#R] {
     override protected implicit def executionContext: ExecutionContext = env.executionContext
 
-    private val logger = play.api.Logger("securesocial.core.SecuredActionBuilder")
+    private val logger = play.api.Logger("securesocial.plugin.SecuredActionBuilder")
 
     def invokeSecuredBlock[A](authorize: Option[Authorization[env.U]], request: Request[A],
       block: SecuredRequest[A, env.U] => Future[Result]): Future[Result] =

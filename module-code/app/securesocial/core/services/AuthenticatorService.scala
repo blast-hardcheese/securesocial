@@ -14,11 +14,11 @@
  * limitations under the License.
  *
  */
-package securesocial.core.services
+package securesocial.plugin.services
 
 import play.api.mvc.RequestHeader
 import scala.concurrent.{ ExecutionContext, Future }
-import securesocial.core.authenticator.{ Authenticator, AuthenticatorBuilder }
+import securesocial.plugin.authenticator.{ Authenticator, AuthenticatorBuilder }
 import scala.reflect.ClassTag
 import org.apache.commons.lang3.reflect.TypeUtils
 

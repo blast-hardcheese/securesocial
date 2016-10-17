@@ -1,6 +1,6 @@
 package securesocial.testkit
 
-import securesocial.core.{Authenticator, AuthenticatorStore}
+import securesocial.plugin.{Authenticator, AuthenticatorStore}
 import play.api.Application
 
 class FakeAuthenticatorStore(app:Application) extends AuthenticatorStore(app) {

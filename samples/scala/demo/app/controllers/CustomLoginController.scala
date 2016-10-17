@@ -5,9 +5,9 @@ import javax.inject.Inject
 import securesocial.controllers.BaseLoginPage
 import play.api.mvc.{ RequestHeader, AnyContent, Action }
 import play.api.Logger
-import securesocial.core.{ RuntimeEnvironment, IdentityProvider }
+import securesocial.plugin.{ RuntimeEnvironment, IdentityProvider }
 import service.DemoUser
-import securesocial.core.services.RoutesService
+import securesocial.plugin.services.RoutesService
 
 class CustomLoginController @Inject() (implicit override val env: RuntimeEnvironment) extends BaseLoginPage {
   override def login: Action[AnyContent] = {

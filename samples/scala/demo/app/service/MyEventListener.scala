@@ -16,7 +16,7 @@
  */
 package service
 
-import securesocial.core._
+import securesocial.plugin._
 import play.api.mvc.{ Session, RequestHeader }
 import play.api.Logger
 

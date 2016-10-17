@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import play.api.mvc.{ Controller, Session, RequestHeader }
 

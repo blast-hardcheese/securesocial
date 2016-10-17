@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import play.api.mvc.{ Result, AnyContent, Request }
 import play.api.Play
@@ -52,7 +52,7 @@ abstract class IdentityProvider {
 }
 
 object IdentityProvider {
-  private val logger = play.api.Logger("securesocial.core.IdentityProvider")
+  private val logger = play.api.Logger("securesocial.plugin.IdentityProvider")
   val SessionId = "sid"
 
   // todo: do I want this here?

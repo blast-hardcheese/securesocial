@@ -14,7 +14,7 @@
 * limitations under the License.
 *
 */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.api.mvc.RequestHeader;
 import play.libs.F;
@@ -22,8 +22,8 @@ import play.libs.HttpExecution;
 import play.mvc.Http;
 import scala.Option;
 import scala.concurrent.ExecutionContext;
-import securesocial.core.RuntimeEnvironment;
-import securesocial.core.SecureSocial$;
+import securesocial.plugin.RuntimeEnvironment;
+import securesocial.plugin.SecureSocial$;
 
 /**
 *

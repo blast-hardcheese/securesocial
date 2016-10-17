@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.providers.utils
+package securesocial.plugin.providers.utils
 
 import play.api.PlayConfig
 import play.api.i18n.{ Lang, Messages }
@@ -22,7 +22,7 @@ import play.api.libs.concurrent.Akka
 import play.api.mvc.RequestHeader
 import play.twirl.api.{ Txt, Html }
 import securesocial.controllers.MailTemplates
-import securesocial.core.BasicProfile
+import securesocial.plugin.BasicProfile
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 /**
@@ -46,7 +46,7 @@ object Mailer {
    * @param mailTemplates the mail templates
    */
   class Default(mailTemplates: MailTemplates) extends Mailer {
-    private val logger = play.api.Logger("securesocial.core.providers.utils.Mailer.Default")
+    private val logger = play.api.Logger("securesocial.plugin.providers.utils.Mailer.Default")
     val fromAddress = current.configuration.getString("play.mailer.from").get
     val AlreadyRegisteredSubject = "mails.sendAlreadyRegisteredEmail.subject"
     val SignUpEmailSubject = "mails.sendSignUpEmail.subject"

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 /**
  * A dummy authorization that just allows all executions. Used when no custom Authorization implementation

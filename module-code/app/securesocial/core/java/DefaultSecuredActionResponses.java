@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.api.i18n.Messages;
@@ -30,7 +30,7 @@ import play.twirl.api.Html;
  * The default responses sent when the invoker is not authenticated or authorized to execute a protected
  * action.
  *
- * @see securesocial.core.java.SecuredActionResponses
+ * @see securesocial.plugin.java.SecuredActionResponses
  */
 public class DefaultSecuredActionResponses extends Controller implements SecuredActionResponses {
     public Html notAuthorizedPage(Http.Context ctx) {

@@ -1,6 +1,6 @@
 package securesocial.testkit
 
-import securesocial.core.{Authenticator, Identity, UserService}
+import securesocial.plugin.{Authenticator, Identity, UserService}
 import org.specs2.execute.{Result, AsResult}
 import play.api.test.{WithApplication, FakeApplication}
 import org.specs2.mock.Mockito
@@ -23,7 +23,7 @@ abstract class WithLoggedUser(override val app: FakeApplication = FakeApplicatio
 }
 
 object WithLoggedUser{
-  val excludedPlugins = List( "securesocial.core.DefaultAuthenticatorStore" )
+  val excludedPlugins = List( "securesocial.plugin.DefaultAuthenticatorStore" )
   val includedPlugins = List( "securesocial.testkit.FakeAuthenticatorStore" )
   def minimalApp = FakeApplication(withoutPlugins=excludedPlugins,additionalPlugins = includedPlugins)
 }

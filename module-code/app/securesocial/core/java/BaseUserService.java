@@ -14,18 +14,18 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.libs.F;
 import play.libs.Scala;
 import scala.*;
 import scala.Option;
 import scala.concurrent.Future;
-import securesocial.core.BasicProfile;
-import securesocial.core.PasswordInfo;
-import securesocial.core.providers.MailToken;
-import securesocial.core.services.SaveMode;
-import securesocial.core.services.UserService;
+import securesocial.plugin.BasicProfile;
+import securesocial.plugin.PasswordInfo;
+import securesocial.plugin.providers.MailToken;
+import securesocial.plugin.services.SaveMode;
+import securesocial.plugin.services.UserService;
 
 import java.lang.Boolean;
 

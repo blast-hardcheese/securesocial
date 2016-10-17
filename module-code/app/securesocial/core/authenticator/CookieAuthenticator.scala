@@ -14,11 +14,11 @@
  * limitations under the License.
  *
  */
-package securesocial.core.authenticator
+package securesocial.plugin.authenticator
 
 import org.joda.time.DateTime
 import play.api.mvc.{ Cookie, Result, DiscardingCookie, RequestHeader }
-import securesocial.core.IdentityProvider
+import securesocial.plugin.IdentityProvider
 import scala.concurrent.{ ExecutionContext, Future }
 import play.api.Play
 

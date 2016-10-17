@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import play.libs.F;
 import play.mvc.Action;
@@ -22,8 +22,8 @@ import play.mvc.Http;
 import play.mvc.Result;
 import scala.Option;
 import scala.runtime.BoxedUnit;
-import securesocial.core.RuntimeEnvironment;
-import securesocial.core.authenticator.Authenticator;
+import securesocial.plugin.RuntimeEnvironment;
+import securesocial.plugin.authenticator.Authenticator;
 
 import javax.inject.Inject;
 

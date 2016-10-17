@@ -11,7 +11,7 @@ Here's a sample usage in Scala:
 	
 	:::scala
 	// 1) add the SecureSocial trait to your controller
-	object Application extends Controller with securesocial.core.SecureSocial {
+	object Application extends Controller with securesocial.plugin.SecureSocial {
 	  // 2) change Play's Action with SecuredAction
 	  def index = SecuredAction { implicit request =>
 	    Ok(views.html.index(request.user))

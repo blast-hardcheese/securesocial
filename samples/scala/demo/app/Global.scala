@@ -16,7 +16,7 @@
  */
 import controllers.CustomRoutesService
 import java.lang.reflect.Constructor
-import securesocial.core.RuntimeEnvironment
+import securesocial.plugin.RuntimeEnvironment
 import service.{ DemoUser, MyEventListener, InMemoryUserService }
 
 object Global extends play.api.GlobalSettings {

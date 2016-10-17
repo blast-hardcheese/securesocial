@@ -14,10 +14,10 @@
  * limitations under the License.
  *
  */
-package securesocial.core.providers.utils
+package securesocial.plugin.providers.utils
 
 import play.api.data.validation.{ Constraint, Invalid, Valid }
-import securesocial.core.RuntimeEnvironment
+import securesocial.plugin.RuntimeEnvironment
 
 /**
  * A trait to define password validators.

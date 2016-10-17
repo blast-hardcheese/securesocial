@@ -1,6 +1,6 @@
 package securesocial.testkit
 
-import securesocial.core.{SocialUser, AuthenticationMethod, IdentityId}
+import securesocial.plugin.{SocialUser, AuthenticationMethod, IdentityId}
 import org.scalacheck.Gen
 
 object SocialUserGenerator {

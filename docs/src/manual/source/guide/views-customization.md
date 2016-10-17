@@ -202,7 +202,7 @@ For example, if the custom templates were placed in the `views/custom` directory
 The templates that come with SecureSocial build URLs using http or https depending on how the `ssl` property was set in the `securesocial.conf` file.  For example, in the sign up page you can find the url used by the form is built as:
 
 	:::html
-	<form action="@securesocial.core.providers.utils.RoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)"
+	<form action="@securesocial.plugin.providers.utils.RoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)"
 
 **Make sure you do it the same way in your templates.**
 

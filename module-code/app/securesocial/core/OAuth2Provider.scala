@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.core
+package securesocial.plugin
 
 import _root_.java.net.URLEncoder
 import _root_.java.util.UUID
@@ -23,7 +23,7 @@ import play.api.Play
 import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json }
 import play.api.libs.ws.WSResponse
 import play.api.mvc._
-import securesocial.core.services.{ CacheService, HttpService, RoutesService }
+import securesocial.plugin.services.{ CacheService, HttpService, RoutesService }
 
 import scala.collection.JavaConversions._
 import scala.concurrent.{ ExecutionContext, Future }
@@ -239,7 +239,7 @@ object OAuth2Settings {
    * @return an OAuth2Settings instance
    */
   def forProvider(id: String): OAuth2Settings = {
-    import securesocial.core.IdentityProvider.loadProperty
+    import securesocial.plugin.IdentityProvider.loadProperty
     val propertyKey = s"securesocial.$id."
 
     val result = for {

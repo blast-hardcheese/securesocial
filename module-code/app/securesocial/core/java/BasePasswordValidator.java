@@ -14,12 +14,12 @@
  * limitations under the License.
  *
  */
-package securesocial.core.java;
+package securesocial.plugin.java;
 
 import scala.Tuple2;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
-import securesocial.core.providers.utils.PasswordValidator;
+import securesocial.plugin.providers.utils.PasswordValidator;
 
 import java.util.List;
 
