@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.authenticator
 
+import securesocial.core.authenticator.IdGenerator
 import org.joda.time.DateTime
 import play.api.mvc.{ Cookie, Result, DiscardingCookie, RequestHeader }
 import securesocial.plugin.IdentityProvider

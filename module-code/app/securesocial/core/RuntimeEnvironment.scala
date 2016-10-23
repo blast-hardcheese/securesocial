@@ -1,6 +1,7 @@
 package securesocial.plugin
 
 import securesocial.controllers.{ MailTemplates, ViewTemplates }
+import securesocial.core.authenticator._
 import securesocial.plugin.authenticator._
 import securesocial.plugin.providers._
 import securesocial.plugin.providers.utils.{ Mailer, PasswordHasher, PasswordValidator }

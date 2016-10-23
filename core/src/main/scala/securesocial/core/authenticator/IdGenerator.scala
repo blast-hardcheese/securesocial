@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.plugin.authenticator
+package securesocial.core.authenticator
 
 import scala.concurrent.Future
 import java.security.SecureRandom
