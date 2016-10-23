@@ -17,9 +17,10 @@
 package securesocial.plugin.providers
 
 import securesocial.core._
+import securesocial.core.services.CacheService
 import securesocial.plugin._
 import securesocial.plugin.providers.LinkedInOAuth2Provider._
-import securesocial.plugin.services.{ CacheService, RoutesService }
+import securesocial.plugin.services.RoutesService
 
 import scala.concurrent.Future
 

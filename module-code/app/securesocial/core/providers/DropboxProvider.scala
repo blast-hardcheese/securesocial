@@ -20,9 +20,10 @@ package securesocial.plugin.providers
 
 import play.api.libs.ws.WS
 import securesocial.core._
+import securesocial.core.services.CacheService
 import securesocial.plugin._
 import securesocial.plugin.providers.DropboxProvider._
-import securesocial.plugin.services.{ CacheService, RoutesService }
+import securesocial.plugin.services.RoutesService
 
 import scala.concurrent.Future
 

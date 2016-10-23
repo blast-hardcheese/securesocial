@@ -18,9 +18,10 @@ package securesocial.plugin.providers
 
 import play.api.libs.json.JsObject
 import securesocial.core._
+import securesocial.core.services.CacheService
 import securesocial.plugin._
 import securesocial.plugin.providers.XingProvider._
-import securesocial.plugin.services.{ CacheService, RoutesService }
+import securesocial.plugin.services.RoutesService
 
 import scala.concurrent.Future
 

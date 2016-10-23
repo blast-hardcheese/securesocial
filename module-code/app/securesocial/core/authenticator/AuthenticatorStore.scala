@@ -17,7 +17,7 @@
 package securesocial.plugin.authenticator
 
 import scala.concurrent.{ ExecutionContext, Future }
-import securesocial.plugin.services.CacheService
+import securesocial.core.services.CacheService
 import scala.reflect.ClassTag
 
 /**

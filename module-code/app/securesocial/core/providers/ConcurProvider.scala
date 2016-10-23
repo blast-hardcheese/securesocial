@@ -22,8 +22,9 @@ import play.api.http.HeaderNames
 import play.api.libs.ws.WSResponse
 import play.api.mvc.Request
 import securesocial.core.{ BasicProfile, OAuth2Info }
+import securesocial.core.services.CacheService
 import securesocial.plugin.{ AuthenticationException, OAuth2Client, OAuth2Constants, OAuth2Provider }
-import securesocial.plugin.services.{ CacheService, RoutesService }
+import securesocial.plugin.services.RoutesService
 
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.xml.Node

@@ -24,7 +24,8 @@ import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json }
 import play.api.libs.ws.WSResponse
 import play.api.mvc._
 import securesocial.core._
-import securesocial.plugin.services.{ CacheService, HttpService, RoutesService }
+import securesocial.core.services.CacheService
+import securesocial.plugin.services.{ HttpService, RoutesService }
 
 import scala.collection.JavaConversions._
 import scala.concurrent.{ ExecutionContext, Future }
