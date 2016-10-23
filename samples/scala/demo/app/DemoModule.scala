@@ -1,6 +1,7 @@
 import com.google.inject.{ TypeLiteral, Scopes, AbstractModule }
 import net.codingwell.scalaguice.ScalaModule
-import securesocial.plugin.{ BasicProfile, RuntimeEnvironment }
+import securesocial.core.BasicProfile
+import securesocial.plugin.RuntimeEnvironment
 import service.{ MyEnvironment, DemoUser }
 
 class DemoModule extends AbstractModule with ScalaModule {

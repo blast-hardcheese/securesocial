@@ -22,7 +22,7 @@ import play.api.libs.concurrent.Akka
 import play.api.mvc.RequestHeader
 import play.twirl.api.{ Txt, Html }
 import securesocial.controllers.MailTemplates
-import securesocial.plugin.BasicProfile
+import securesocial.core.BasicProfile
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 /**

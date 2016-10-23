@@ -20,7 +20,8 @@ import play.api.data.Form
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import play.twirl.api.{ Html, Txt }
-import securesocial.plugin.{ BasicProfile, RuntimeEnvironment }
+import securesocial.core.BasicProfile
+import securesocial.plugin.RuntimeEnvironment
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 

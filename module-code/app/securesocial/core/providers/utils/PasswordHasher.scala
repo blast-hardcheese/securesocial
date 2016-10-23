@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.providers.utils
 
-import securesocial.plugin.PasswordInfo
+import securesocial.core.PasswordInfo
 import org.mindrot.jbcrypt._
 
 /**

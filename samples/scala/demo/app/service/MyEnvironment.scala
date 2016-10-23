@@ -19,7 +19,8 @@ package service
 
 import com.google.inject.{ Inject, Singleton }
 import controllers.CustomRoutesService
-import securesocial.plugin.{ BasicProfile, RuntimeEnvironment }
+import securesocial.core.BasicProfile
+import securesocial.plugin.RuntimeEnvironment
 
 class MyEnvironment extends RuntimeEnvironment.Default {
   override type U = DemoUser

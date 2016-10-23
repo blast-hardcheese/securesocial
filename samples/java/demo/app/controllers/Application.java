@@ -21,7 +21,7 @@ import play.Logger;
 import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
-import securesocial.plugin.BasicProfile;
+import securesocial.core.BasicProfile;
 import securesocial.plugin.RuntimeEnvironment;
 import securesocial.plugin.java.SecureSocial;
 import securesocial.plugin.java.SecuredAction;

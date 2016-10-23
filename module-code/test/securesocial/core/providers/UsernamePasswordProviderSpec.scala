@@ -13,8 +13,9 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import securesocial.controllers.ViewTemplates
+import securesocial.plugin.AuthenticationResult
 import securesocial.plugin.AuthenticationResult.Authenticated
-import securesocial.plugin.{ PasswordInfo, BasicProfile, AuthenticationResult }
+import securesocial.core.{ PasswordInfo, BasicProfile }
 import securesocial.plugin.providers.utils.PasswordHasher
 import securesocial.plugin.services._
 import play.api.libs.concurrent.Execution.Implicits._

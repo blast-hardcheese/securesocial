@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import securesocial.core._
 import securesocial.plugin._
 import securesocial.plugin.services.{ CacheService, RoutesService }
 

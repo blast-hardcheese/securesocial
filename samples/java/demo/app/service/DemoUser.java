@@ -16,7 +16,7 @@
  */
 package service;
 
-import securesocial.plugin.BasicProfile;
+import securesocial.core.BasicProfile;
 
 import java.io.Serializable;
 import java.util.ArrayList;

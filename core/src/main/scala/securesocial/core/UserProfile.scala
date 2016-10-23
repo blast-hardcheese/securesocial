@@ -14,9 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.plugin
-
-import securesocial.core._
+package securesocial.core
 
 /**
  * A minimal user profile

@@ -2,7 +2,8 @@ package scenarios.helpers
 
 import com.google.inject.Singleton
 import securesocial.plugin.services.UserService
-import securesocial.plugin.{ BasicProfile, RuntimeEnvironment }
+import securesocial.core.BasicProfile
+import securesocial.plugin.RuntimeEnvironment
 
 /**
  * Created by dverdone on 8/6/15.

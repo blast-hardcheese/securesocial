@@ -21,7 +21,8 @@ import org.joda.time.format.DateTimeFormat
 import play.api.http.HeaderNames
 import play.api.libs.ws.WSResponse
 import play.api.mvc.Request
-import securesocial.plugin.{ AuthenticationException, BasicProfile, OAuth2Client, OAuth2Constants, OAuth2Info, OAuth2Provider }
+import securesocial.core.{ BasicProfile, OAuth2Info }
+import securesocial.plugin.{ AuthenticationException, OAuth2Client, OAuth2Constants, OAuth2Provider }
 import securesocial.plugin.services.{ CacheService, RoutesService }
 
 import scala.concurrent.{ ExecutionContext, Future }

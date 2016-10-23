@@ -25,7 +25,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 import securesocial.plugin.SignUpEvent
 import securesocial.plugin.AuthenticationResult.Authenticated
 import securesocial.plugin.LoginEvent
-import securesocial.plugin.BasicProfile
+import securesocial.core.BasicProfile
 import securesocial.plugin.services.SaveMode
 
 /**

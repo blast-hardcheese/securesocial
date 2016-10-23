@@ -17,6 +17,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsArray, JsObject }
+import securesocial.core._
 import securesocial.plugin._
 import securesocial.plugin.services.{ CacheService, RoutesService }
 

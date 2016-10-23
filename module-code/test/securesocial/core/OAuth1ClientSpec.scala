@@ -1,5 +1,6 @@
 package securesocial.plugin
 
+import securesocial.core._
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito

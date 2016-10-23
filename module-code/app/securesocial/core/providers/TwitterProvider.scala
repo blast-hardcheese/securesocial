@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import securesocial.core._
 import securesocial.plugin._
 import play.api.libs.oauth.{ RequestToken, OAuthCalculator }
 import play.api.Logger

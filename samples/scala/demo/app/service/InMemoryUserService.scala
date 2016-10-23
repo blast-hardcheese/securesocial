@@ -17,6 +17,7 @@
 package service
 
 import play.api.Logger
+import securesocial.core._
 import securesocial.plugin._
 import securesocial.plugin.providers.{ UsernamePasswordProvider, MailToken }
 import scala.concurrent.Future

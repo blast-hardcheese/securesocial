@@ -17,7 +17,7 @@
 package securesocial.plugin.services
 
 import scala.concurrent.Future
-import securesocial.plugin.{ PasswordInfo, BasicProfile }
+import securesocial.core.{ PasswordInfo, BasicProfile }
 import securesocial.plugin.providers.MailToken
 
 trait UserService[U] {
