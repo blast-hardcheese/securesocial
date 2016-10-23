@@ -63,7 +63,9 @@ object RuntimeEnvironment {
     override lazy val httpService: HttpService = new HttpService.Default
     override lazy val cacheService: CacheService = new CacheService.Default
     override lazy val avatarService: Option[AvatarService] = Some(new AvatarService.Default(httpService))
-    override lazy val idGenerator: IdGenerator = new IdGenerator.Default()
+    override lazy val idGenerator: IdGenerator = new IdGenerator.Default() {
+      override val IdSizeInBytes = play.api.Play.current.configuration.getInt(IdLengthKey).getOrElse(DefaultSizeInBytes)
+    }
 
     override lazy val authenticatorService = new AuthenticatorService(
       new CookieAuthenticatorBuilder[U](new AuthenticatorStore.Default(cacheService), idGenerator),

@@ -38,13 +38,13 @@ object IdGenerator {
   /**
    * The default id generator
    */
-  class Default extends IdGenerator {
+  abstract class Default extends IdGenerator {
     //todo: this needs improvement, several threads will wait for the synchronized block in SecureRandom.
     // I will probably need a pool of SecureRandom instances.
     val random = new SecureRandom()
     val DefaultSizeInBytes = 128
     val IdLengthKey = "securesocial.idLengthInBytes"
-    val IdSizeInBytes = play.api.Play.current.configuration.getInt(IdLengthKey).getOrElse(DefaultSizeInBytes)
+    val IdSizeInBytes: Int
 
     /**
      * Generates a new id using SecureRandom
