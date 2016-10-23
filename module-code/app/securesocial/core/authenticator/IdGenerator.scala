@@ -18,7 +18,6 @@ package securesocial.plugin.authenticator
 
 import scala.concurrent.Future
 import java.security.SecureRandom
-import play.api.libs.Codecs
 
 /**
  * An Authenticator Id generator.
@@ -28,6 +27,14 @@ trait IdGenerator {
 }
 
 object IdGenerator {
+  val DIGITS_LOWER = Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
+
+  def toHexString(bytes: Array[Byte]): String = {
+    bytes.foldRight(List.empty[Char])({ (b, a) =>
+      DIGITS_LOWER((b & 0xf0) >> 4) :: DIGITS_LOWER(b & 0x0f) :: a
+    }).mkString
+  }
+
   /**
    * The default id generator
    */
@@ -49,7 +56,7 @@ object IdGenerator {
       Future.successful {
         var randomValue = new Array[Byte](IdSizeInBytes)
         random.nextBytes(randomValue)
-        Codecs.toHexString(randomValue)
+        toHexString(randomValue)
       }
     }
   }
