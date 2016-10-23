@@ -62,7 +62,23 @@ object RuntimeEnvironment {
     override lazy val passwordValidator: PasswordValidator = new PasswordValidator.Default()
 
     override lazy val httpService: HttpService = new HttpService.Default
-    override lazy val cacheService: CacheService = new CacheService.Default
+    override lazy val cacheService: CacheService = new CacheService {
+      import play.api.cache.Cache
+      import scala.reflect.ClassTag
+      import play.api.Play.current
+      import scala.concurrent.Future
+
+      override def set[T](key: String, value: T, ttlInSeconds: Int): Future[Unit] =
+        Future.successful(Cache.set(key, value, ttlInSeconds))
+
+      override def getAs[T](key: String)(implicit ct: ClassTag[T]): Future[Option[T]] = Future.successful {
+        Cache.getAs[T](key)
+      }
+
+      override def remove(key: String): Future[Unit] = Future.successful {
+        Cache.remove(key)
+      }
+    }
     override lazy val avatarService: Option[AvatarService] = Some(new AvatarService.Default(httpService))
     override lazy val idGenerator: IdGenerator = new IdGenerator.Default() {
       override val IdSizeInBytes = play.api.Play.current.configuration.getInt(IdLengthKey).getOrElse(DefaultSizeInBytes)

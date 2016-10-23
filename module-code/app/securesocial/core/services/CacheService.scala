@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.services
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.Future
 
 /**
  * An interface for the Cache API
@@ -30,27 +30,4 @@ trait CacheService {
   def getAs[T](key: String)(implicit ct: ClassTag[T]): Future[Option[T]]
 
   def remove(key: String): Future[Unit]
-}
-
-object CacheService {
-
-  /**
-   * A default implementation for the CacheService based on the Play cache.
-   */
-  class Default(implicit val executionContext: ExecutionContext) extends CacheService {
-    import play.api.cache.Cache
-    import scala.reflect.ClassTag
-    import play.api.Play.current
-
-    override def set[T](key: String, value: T, ttlInSeconds: Int): Future[Unit] =
-      Future.successful(Cache.set(key, value, ttlInSeconds))
-
-    override def getAs[T](key: String)(implicit ct: ClassTag[T]): Future[Option[T]] = Future.successful {
-      Cache.getAs[T](key)
-    }
-
-    override def remove(key: String): Future[Unit] = Future.successful {
-      Cache.remove(key)
-    }
-  }
 }
