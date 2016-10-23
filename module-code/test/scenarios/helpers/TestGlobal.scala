@@ -12,5 +12,5 @@ import securesocial.plugin.RuntimeEnvironment
 case class TestGlobal() extends RuntimeEnvironment.Default {
   type U = DemoUser
   lazy override val userService: UserService[DemoUser] = null
-
+  override implicit val executionContext = play.api.libs.concurrent.Execution.defaultContext
 }

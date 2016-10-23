@@ -133,4 +133,3 @@ trait ApiSupport {
    */
   def authenticateForApi(implicit request: Request[AnyContent]): Future[AuthenticationResult]
 }
-

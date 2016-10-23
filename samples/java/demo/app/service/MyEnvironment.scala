@@ -22,4 +22,5 @@ import securesocial.plugin.services.UserService
 class MyEnvironment extends RuntimeEnvironment.Default {
   type U = DemoUser
   override val userService: UserService[U] = new InMemoryUserService()
+  override implicit val executionContext = play.api.libs.concurrent.Execution.defaultContext
 }
