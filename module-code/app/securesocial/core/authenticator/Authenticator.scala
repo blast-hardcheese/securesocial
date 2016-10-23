@@ -18,6 +18,7 @@ package securesocial.plugin.authenticator
 
 import org.joda.time.DateTime
 import play.api.mvc.{ Result, RequestHeader }
+import play.mvc.Http.Context
 import scala.concurrent.Future
 
 /**
@@ -112,7 +113,7 @@ trait Authenticator[U] {
    * @param javaContext the current http context
    * @return the http context modified with the updated authenticator
    */
-  def touching(javaContext: play.mvc.Http.Context): Future[Unit]
+  def touching(javaContext: Context): Future[Unit]
 
   /**
    * Ends an authenticator session.  This is invoked when the authenticator becomes invalid (for Java actions)
@@ -120,7 +121,7 @@ trait Authenticator[U] {
    * @param javaContext the current http context
    * @return the current http context modified to signal the authenticator is no longer valid
    */
-  def discarding(javaContext: play.mvc.Http.Context): Future[Unit]
+  def discarding(javaContext: Context): Future[Unit]
 }
 
 /**
