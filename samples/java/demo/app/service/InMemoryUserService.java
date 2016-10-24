@@ -20,7 +20,7 @@ import play.Logger;
 import play.libs.F;
 import securesocial.core.BasicProfile;
 import securesocial.core.PasswordInfo;
-import securesocial.plugin.services.SaveMode;
+import securesocial.core.services.SaveMode;
 import securesocial.plugin.java.BaseUserService;
 import securesocial.plugin.java.Token;
 import securesocial.plugin.providers.UsernamePasswordProvider;

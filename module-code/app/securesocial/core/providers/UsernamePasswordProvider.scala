@@ -23,10 +23,11 @@ import play.api.data.Forms._
 import play.api.mvc._
 import securesocial.controllers.ViewTemplates
 import securesocial.core._
+import securesocial.core.services.UserService
 import securesocial.plugin.AuthenticationResult.{ Authenticated, NavigationFlow }
 import securesocial.plugin._
 import securesocial.plugin.providers.utils.PasswordHasher
-import securesocial.plugin.services.{ AvatarService, UserService }
+import securesocial.plugin.services.AvatarService
 
 import scala.concurrent.{ ExecutionContext, Future }
 

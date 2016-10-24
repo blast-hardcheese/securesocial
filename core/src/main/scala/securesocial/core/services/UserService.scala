@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.plugin.services
+package securesocial.core.services
 
 import scala.concurrent.Future
 import securesocial.core.{ PasswordInfo, BasicProfile }

@@ -26,7 +26,7 @@ import securesocial.plugin.SignUpEvent
 import securesocial.plugin.AuthenticationResult.Authenticated
 import securesocial.plugin.LoginEvent
 import securesocial.core.BasicProfile
-import securesocial.plugin.services.SaveMode
+import securesocial.core.services.SaveMode
 
 /**
  * A default controller that uses the BasicProfile as the application user type.

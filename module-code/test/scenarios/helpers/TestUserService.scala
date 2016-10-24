@@ -22,7 +22,7 @@ import securesocial.core.providers.MailToken
 import securesocial.plugin._
 import securesocial.plugin.providers.UsernamePasswordProvider
 import scala.concurrent.Future
-import securesocial.plugin.services.{ UserService, SaveMode }
+import securesocial.core.services.{ UserService, SaveMode }
 
 /**
  * A Sample In Memory user service in Scala

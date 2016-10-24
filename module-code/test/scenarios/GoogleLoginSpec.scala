@@ -5,9 +5,10 @@ import org.specs2.mock.Mockito
 import play.api.test.{ FakeApplication, PlaySpecification, WithApplication }
 
 import scenarios.helpers.{ TestGlobal, DemoUser, TestUserService }
+import securesocial.core.services.UserService
 import securesocial.plugin.providers.GoogleProvider
 import securesocial.plugin.{ IdentityProvider, EventListener, RuntimeEnvironment }
-import securesocial.plugin.services.{ HttpService, UserService, RoutesService }
+import securesocial.plugin.services.{ HttpService, RoutesService }
 import org.specs2.matcher.Matcher
 import play.api.libs.ws.{ WSRequest, WSRequestHolder, WSResponse }
 import scala.concurrent.Future

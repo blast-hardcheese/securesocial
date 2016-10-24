@@ -2,8 +2,9 @@ package scenarios
 
 import java.lang.reflect.Constructor
 import play.api.test.{ Writeables, RouteInvokers, PlayRunners }
+import securesocial.core.services.UserService
 import securesocial.plugin.RuntimeEnvironment
-import securesocial.plugin.services.{ UserService, RoutesService }
+import securesocial.plugin.services.RoutesService
 
 package object helpers {
   type ApiExecutor = PlayRunners with RouteInvokers with Writeables

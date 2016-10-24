@@ -17,7 +17,7 @@
 package service
 
 import securesocial.plugin.RuntimeEnvironment
-import securesocial.plugin.services.UserService
+import securesocial.core.services.UserService
 
 class MyEnvironment extends RuntimeEnvironment.Default {
   type U = DemoUser

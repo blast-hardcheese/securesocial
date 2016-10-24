@@ -13,6 +13,7 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import securesocial.controllers.ViewTemplates
+import securesocial.core.services._
 import securesocial.plugin.AuthenticationResult
 import securesocial.plugin.AuthenticationResult.Authenticated
 import securesocial.core.{ PasswordInfo, BasicProfile }

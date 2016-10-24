@@ -1,7 +1,7 @@
 package scenarios.helpers
 
 import com.google.inject.Singleton
-import securesocial.plugin.services.UserService
+import securesocial.core.services.UserService
 import securesocial.core.BasicProfile
 import securesocial.plugin.RuntimeEnvironment
 

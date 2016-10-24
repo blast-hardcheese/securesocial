@@ -20,9 +20,9 @@ import javax.inject.Inject
 import play.api.Play
 import play.api.i18n.Messages
 import play.api.mvc._
+import securesocial.core.services.SaveMode
 import securesocial.plugin._
 import securesocial.plugin.authenticator.CookieAuthenticator
-import securesocial.plugin.services.SaveMode
 import securesocial.plugin.utils._
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current

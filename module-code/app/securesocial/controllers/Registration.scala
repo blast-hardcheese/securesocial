@@ -28,7 +28,7 @@ import securesocial.plugin._
 import securesocial.plugin.authenticator.CookieAuthenticator
 import securesocial.plugin.providers.UsernamePasswordProvider
 import securesocial.plugin.providers.utils._
-import securesocial.plugin.services.SaveMode
+import securesocial.core.services.SaveMode
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
