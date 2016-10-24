@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package securesocial.plugin
+package securesocial.core
 
 /**
  * An exception thrown when there is an error in the authentication flow
