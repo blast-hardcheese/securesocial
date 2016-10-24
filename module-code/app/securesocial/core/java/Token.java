@@ -32,13 +32,13 @@ public class Token {
         return expirationTime.isBeforeNow();
     }
 
-    public securesocial.plugin.providers.MailToken toScala() {
-        return securesocial.plugin.providers.MailToken$.MODULE$.apply(
+    public securesocial.core.providers.MailToken toScala() {
+        return securesocial.core.providers.MailToken$.MODULE$.apply(
                 uuid, email, creationTime, expirationTime, isSignUp
         );
     }
 
-    public static Token fromScala(securesocial.plugin.providers.MailToken scalaToken) {
+    public static Token fromScala(securesocial.core.providers.MailToken scalaToken) {
         Token javaToken = new Token();
         javaToken.uuid = scalaToken.uuid();
         javaToken.email = scalaToken.email();

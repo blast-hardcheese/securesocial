@@ -23,7 +23,7 @@ import scala.Option;
 import scala.concurrent.Future;
 import securesocial.core.BasicProfile;
 import securesocial.core.PasswordInfo;
-import securesocial.plugin.providers.MailToken;
+import securesocial.core.providers.MailToken;
 import securesocial.plugin.services.SaveMode;
 import securesocial.plugin.services.UserService;
 

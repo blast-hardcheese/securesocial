@@ -18,8 +18,9 @@ package scenarios.helpers
 
 import play.api.Logger
 import securesocial.core._
+import securesocial.core.providers.MailToken
 import securesocial.plugin._
-import securesocial.plugin.providers.{ UsernamePasswordProvider, MailToken }
+import securesocial.plugin.providers.UsernamePasswordProvider
 import scala.concurrent.Future
 import securesocial.plugin.services.{ UserService, SaveMode }
 

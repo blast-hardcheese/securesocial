@@ -7,6 +7,7 @@ scalaVersion := Common.scalaVersion
 crossScalaVersions := Seq("2.11.7", "2.10.5")
 
 libraryDependencies ++= Seq(
+  "joda-time" % "joda-time" % "2.8.1",
   specs2 % "test",
   "org.mindrot" % "jbcrypt" % "0.3m"
 )
