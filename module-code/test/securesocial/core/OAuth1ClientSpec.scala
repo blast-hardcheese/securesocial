@@ -9,10 +9,12 @@ import play.api.libs.oauth._
 import oauth.signpost.exception.OAuthException
 import play.api.libs.json.Json
 import securesocial.plugin.services.HttpService
+import play.api.libs.json.JsValue
 import play.api.libs.oauth.ServiceInfo
 import play.api.libs.oauth.OAuth
 import play.api.libs.oauth.RequestToken
 import play.api.libs.oauth.ConsumerKey
+import play.api.libs.ws.{ WSRequest, WSResponse }
 
 class OAuth1ClientSpec extends Specification with Mockito {
   val fakeServiceInfo = new ServiceInfo("requestTokenUrl", "accessTokenUrl", "authorizationUrl", ConsumerKey("consumerKey", "consumerSecret"))
@@ -86,13 +88,15 @@ class OAuth1ClientSpec extends Specification with Mockito {
         httpService.request.sign(any[OAuthCalculator]) returns httpService.request //make sure the request is signed
         httpService.response.json returns expectedJsonProfile
 
-        val actualJsonProfile = client.retrieveProfile(profileApiUrl, oauth1info)
+        implicit def resp2Json: WSResponse => JsValue = _.json
+
+        val actualJsonProfile = client.retrieveProfile[JsValue](profileApiUrl, oauth1info)
 
         actualJsonProfile must beEqualTo(expectedJsonProfile).await
     }
   }
 
-  private def aDefaultClient(httpService: HttpService = new MockHttpService()) = {
+  private def aDefaultClient(httpService: HttpService[WSRequest, WSResponse] = new MockHttpService()) = {
     implicit val ec = helpers.sequentialExecutionContext
     new OAuth1Client.Default(fakeServiceInfo, httpService) {
       override val client = mock[OAuth]

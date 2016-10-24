@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -59,8 +60,8 @@ class GitHubProvider(routesService: RoutesService,
     )
   }
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    client.retrieveProfile(GetAuthenticatedUser.format(info.accessToken)).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ Message).asOpt[String] match {
         case Some(msg) =>
           logger.error(s"[securesocial] error retrieving profile information from GitHub. Message = $msg")
@@ -70,9 +71,13 @@ class GitHubProvider(routesService: RoutesService,
           val displayName = (me \ Name).asOpt[String]
           val avatarUrl = (me \ AvatarUrl).asOpt[String]
           val email = (me \ Email).asOpt[String].filter(!_.isEmpty)
-          BasicProfile(id, userId.toString, None, None, displayName, email, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId.toString, None, None, displayName, email, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](GetAuthenticatedUser.format(info.accessToken)).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from github", e)

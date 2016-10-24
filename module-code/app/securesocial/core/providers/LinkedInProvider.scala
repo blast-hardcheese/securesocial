@@ -19,6 +19,7 @@ package securesocial.plugin.providers
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
+import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.oauth.{ RequestToken, OAuthCalculator }
 import play.api.libs.ws.WSResponse
 import play.api.Logger
@@ -39,8 +40,8 @@ class LinkedInProvider(
 ) {
   override val id = LinkedInProvider.LinkedIn
 
-  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
-    client.retrieveProfile(LinkedInProvider.Api, info).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ ErrorCode).asOpt[Int] match {
         case Some(error) => {
           val message = (me \ Message).asOpt[String]
@@ -58,9 +59,13 @@ class LinkedInProvider(
           val fullName = (me \ FormattedName).asOpt[String]
           val avatarUrl = (me \ PictureUrl).asOpt[String]
           val emailAddress = (me \ EmailAddress).asOpt[String]
-          BasicProfile(id, userId, firstName, lastName, fullName, emailAddress, avatarUrl, authMethod, Some(info))
+          JsSuccess(BasicProfile(id, userId, firstName, lastName, fullName, emailAddress, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](LinkedInProvider.Api, info).map(_.copy(oAuth1Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from LinkedIn", e)

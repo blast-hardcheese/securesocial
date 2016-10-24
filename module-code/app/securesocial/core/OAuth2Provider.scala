@@ -20,7 +20,7 @@ import _root_.java.net.URLEncoder
 import _root_.java.util.UUID
 
 import play.api.Play
-import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json }
+import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json, Reads }
 import play.api.libs.ws.{ WSRequest, WSResponse }
 import play.api.mvc._
 import securesocial.core._
@@ -36,7 +36,7 @@ trait OAuth2Client {
 
   def exchangeCodeForToken(code: String, callBackUrl: String, builder: OAuth2InfoBuilder): Future[OAuth2Info]
 
-  def retrieveProfile(profileUrl: String): Future[JsValue]
+  def retrieveProfile[T](profileUrl: String)(implicit ev: WSResponse => T): Future[T]
 
   type OAuth2InfoBuilder = WSResponse => OAuth2Info
 
@@ -59,8 +59,8 @@ object OAuth2Client {
       httpService.url(settings.accessTokenUrl).post(params).map(builder)
     }
 
-    override def retrieveProfile(profileUrl: String): Future[JsValue] =
-      httpService.url(profileUrl).get().map(_.json)
+    override def retrieveProfile[T](profileUrl: String)(implicit ev: WSResponse => T): Future[T] =
+      httpService.url(profileUrl).get().map(ev(_))
   }
 }
 /**
@@ -163,6 +163,8 @@ abstract class OAuth2Provider(
       }
     }
   }
+
+  implicit def resp2BasicProfile(implicit ev: Reads[BasicProfile]): WSResponse => BasicProfile = _.json.as[BasicProfile]
 
   def fillProfile(info: OAuth2Info): Future[BasicProfile]
 

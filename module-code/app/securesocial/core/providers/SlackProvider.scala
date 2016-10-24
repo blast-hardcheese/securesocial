@@ -19,7 +19,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.ws.WSResponse
-import play.api.libs.json.{ Reads, Json, JsValue }
+import play.api.libs.json.{ JsResult, JsSuccess, Reads, Json, JsValue }
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -53,8 +53,8 @@ class SlackProvider(routesService: RoutesService,
     super.buildInfo(response)
   }
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    client.retrieveProfile(GetAuthenticatedUser.format(info.accessToken)).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       val response = me.as[CommonResponse]
       response.error match {
         case Some(msg) =>
@@ -62,9 +62,13 @@ class SlackProvider(routesService: RoutesService,
           throw new AuthenticationException()
         case _ =>
           val userInfo = me.as[AuthTestResponse]
-          BasicProfile(id, userInfo.user_id, None, None, Some(userInfo.user), None, None, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userInfo.user_id, None, None, Some(userInfo.user), None, None, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](GetAuthenticatedUser.format(info.accessToken)).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from github", e)

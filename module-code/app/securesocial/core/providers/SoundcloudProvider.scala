@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.providers
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -43,9 +43,8 @@ class SoundcloudProvider(routesService: RoutesService,
 
   override val id = SoundcloudProvider.Soundcloud
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    val accessToken = info.accessToken
-    client.retrieveProfile(UserInfoApi + accessToken).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ Error).asOpt[JsObject] match {
         case Some(error) =>
           val message = (error \ Message).as[String]
@@ -57,9 +56,14 @@ class SoundcloudProvider(routesService: RoutesService,
           val username = (me \ Username).asOpt[String]
           val fullName = (me \ FullName).asOpt[String]
           val avatarUrl = (me \ AvatarUrl).asOpt[String]
-          BasicProfile(id, userId.toString, None, username, fullName, None, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId.toString, None, username, fullName, None, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    val accessToken = info.accessToken
+    client.retrieveProfile[BasicProfile](UserInfoApi + accessToken).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from Soundcloud", e)

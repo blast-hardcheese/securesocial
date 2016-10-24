@@ -14,7 +14,8 @@ object MockHttpService {
   type ParamsWriter = Writeable[Params]
   type ContentTypeOfParams = ContentTypeOf[Params]
 }
-class MockHttpService extends Mockito with HttpService {
+
+class MockHttpService extends Mockito with HttpService[WSRequest, WSResponse] {
 
   val request = mock[WSRequest].as(s"Request($hashCode)")
   val response = mock[WSResponse].as(s"Response($hashCode")

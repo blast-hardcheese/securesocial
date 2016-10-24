@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.providers
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -60,9 +60,8 @@ class FacebookProvider(routesService: RoutesService,
     }
   }
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    val accessToken = info.accessToken
-    client.retrieveProfile(MeApi + accessToken).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ Error).asOpt[JsObject] match {
         case Some(error) =>
           val message = (error \ Message).as[String]
@@ -80,9 +79,14 @@ class FacebookProvider(routesService: RoutesService,
           val picture = me \ Picture
           val avatarUrl = (picture \ Data \ Url).asOpt[String]
           val email = (me \ Email).asOpt[String]
-          BasicProfile(id, userId, firstName, lastName, name, email, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId, firstName, lastName, name, email, avatarUrl, authMethod, oAuth2Info = None))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    val accessToken = info.accessToken
+    client.retrieveProfile[BasicProfile](MeApi + accessToken).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from Facebook", e)

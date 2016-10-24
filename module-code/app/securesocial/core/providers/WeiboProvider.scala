@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.{ WS, WSResponse }
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -63,6 +64,21 @@ class WeiboProvider(routesService: RoutesService,
     )
   }
 
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
+      (me \ Message).asOpt[String] match {
+        case Some(msg) =>
+          logger.error("[securesocial] error retrieving profile information from Weibo. Message = %s".format(msg))
+          throw new AuthenticationException()
+        case _ =>
+          val userId = (me \ Id).as[String]
+          val displayName = (me \ Name).asOpt[String]
+          val avatarUrl = (me \ AvatarUrl).asOpt[String]
+          JsSuccess(BasicProfile(id, userId, None, None, displayName, email = None, avatarUrl, authMethod))
+      }
+    }
+  }
+
   /**
    * Subclasses need to implement this method to populate the User object with profile
    * information from the service provider.
@@ -78,20 +94,15 @@ class WeiboProvider(routesService: RoutesService,
       throw new AuthenticationException()
     }
 
-    client.retrieveProfile(GetAuthenticatedUser.format(weiboUserId, info.accessToken)).flatMap { me =>
-      (me \ Message).asOpt[String] match {
-        case Some(msg) =>
-          logger.error("[securesocial] error retrieving profile information from Weibo. Message = %s".format(msg))
-          throw new AuthenticationException()
-        case _ =>
-          val userId = (me \ Id).as[String]
-          val displayName = (me \ Name).asOpt[String]
-          val avatarUrl = (me \ AvatarUrl).asOpt[String]
-          getEmail(info.accessToken).map { email =>
-            BasicProfile(id, userId, None, None, displayName, email, avatarUrl, authMethod, None, Some(info))
-          }
-      }
-    } recover {
+    (for {
+      email <- getEmail(info.accessToken)
+      profile <- client.retrieveProfile[BasicProfile](GetAuthenticatedUser.format(weiboUserId, info.accessToken))
+    } yield {
+      profile.copy(
+        email = email,
+        oAuth2Info = Some(info)
+      )
+    }) recover {
       case e =>
         logger.error("[securesocial] error retrieving profile information from weibo", e)
         throw new AuthenticationException()

@@ -1,6 +1,6 @@
 package securesocial.plugin.providers
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -27,9 +27,8 @@ class VkProvider(routesService: RoutesService,
 
   override val id = VkProvider.Vk
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    val accessToken = info.accessToken
-    client.retrieveProfile(GetProfilesApi + accessToken).map { json =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(json: JsValue): JsResult[BasicProfile] = {
       (json \ Error).asOpt[JsObject] match {
         case Some(error) =>
           val message = (error \ ErrorMessage).as[String]
@@ -44,9 +43,14 @@ class VkProvider(routesService: RoutesService,
           val firstName = (me \ FirstName).asOpt[String]
           val lastName = (me \ LastName).asOpt[String]
           val avatarUrl = (me \ Photo).asOpt[String]
-          BasicProfile(id, userId, firstName, lastName, None, None, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId, firstName, lastName, None, None, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    val accessToken = info.accessToken
+    client.retrieveProfile[BasicProfile](GetProfilesApi + accessToken).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e: Exception =>
         logger.error("[securesocial] error retrieving profile information from VK", e)

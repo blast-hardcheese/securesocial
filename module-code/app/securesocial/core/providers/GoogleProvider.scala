@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.providers
 
-import play.api.libs.json.{ JsArray, JsObject }
+import play.api.libs.json.{ JsArray, JsObject, JsValue, JsResult, JsSuccess, Reads }
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -49,9 +49,8 @@ class GoogleProvider(routesService: RoutesService,
 
   override val id = GoogleProvider.Google
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    val accessToken = info.accessToken
-    client.retrieveProfile(UserInfoApi + accessToken).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ Error).asOpt[JsObject] match {
         case Some(error) =>
           val message = (error \ Message).as[String]
@@ -66,9 +65,14 @@ class GoogleProvider(routesService: RoutesService,
           val avatarUrl = (me \ Image \ Url).asOpt[String]
           val emails = (me \ Emails).get.asInstanceOf[JsArray]
           val email = emails.value.find(v => (v \ EmailType).as[String] == Account).map(e => (e \ Email).as[String])
-          BasicProfile(id, userId, firstName, lastName, fullName, email, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId, firstName, lastName, fullName, email, avatarUrl, authMethod, oAuth2Info = None))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    val accessToken = info.accessToken
+    client.retrieveProfile[BasicProfile](UserInfoApi + accessToken).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from Google", e)

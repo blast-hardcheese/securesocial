@@ -9,7 +9,7 @@ import helpers.MockHttpService
 import scala.concurrent.Future
 import play.api.libs.oauth.{ ConsumerKey, ServiceInfo }
 import play.api.libs.json.{ JsValue, JsObject, Json }
-import play.api.libs.ws.WSResponse
+import play.api.libs.ws.{ WSRequest, WSResponse }
 import play.api.test.Helpers._
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -40,13 +40,15 @@ class OAuth2ClientSpec extends Specification with Mockito {
         val expectedJson: JsObject = Json.obj("expected" -> "object")
         httpService.response.json returns expectedJson
 
-        val actualProfile = client.retrieveProfile(profileUrl)
+        implicit def resp2Json: WSResponse => JsValue = _.json
+
+        val actualProfile = client.retrieveProfile[JsValue](profileUrl)
 
         actualProfile must beEqualTo(expectedJson).await
     }
 
   }
-  private def aDefaultClient(httpService: HttpService = new MockHttpService()) = {
+  private def aDefaultClient(httpService: HttpService[WSRequest, WSResponse] = new MockHttpService()) = {
     new OAuth2Client.Default(httpService, fakeOAuth2Settings) {
     }
   }

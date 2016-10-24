@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -34,8 +35,8 @@ class SpotifyProvider(routesService: RoutesService,
     extends OAuth2Provider(routesService, client, cacheService) {
   override val id = SpotifyProvider.Spotify
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    client.retrieveProfile(SpotifyProvider.Api.format(info.accessToken)).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ Message).asOpt[String] match {
         case Some(msg) =>
           logger.error(s"[securesocial] error retrieving profile information from Spotify. Message = $msg")
@@ -45,9 +46,13 @@ class SpotifyProvider(routesService: RoutesService,
           val displayName = (me \ Name).asOpt[String]
           val uri = (me \ Uri).asOpt[String]
           val email = (me \ Email).asOpt[String].filter(!_.isEmpty)
-          BasicProfile(id, userId.toString, None, None, displayName, email, uri, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId.toString, None, None, displayName, email, uri, authMethod, oAuth2Info = None))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](SpotifyProvider.Api.format(info.accessToken)).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from Spotify", e)

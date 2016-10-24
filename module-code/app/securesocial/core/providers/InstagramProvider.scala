@@ -16,6 +16,7 @@
  */
 package securesocial.plugin.providers
 
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -42,8 +43,8 @@ class InstagramProvider(routesService: RoutesService,
 
   override val id = InstagramProvider.Instagram
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    client.retrieveProfile(GetAuthenticatedUser.format(info.accessToken)).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ "response" \ "user").asOpt[String] match {
         case Some(msg) => {
           logger.error(s"[securesocial] error retrieving profile information from Instagram. Message = $msg")
@@ -53,9 +54,13 @@ class InstagramProvider(routesService: RoutesService,
           val userId = (me \ Data \ Id).as[String]
           val fullName = (me \ Data \ FullName).asOpt[String]
           val avatarUrl = (me \ Data \ ProfilePic).asOpt[String]
-          BasicProfile(id, userId, None, None, fullName, None, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId, None, None, fullName, None, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](GetAuthenticatedUser.format(info.accessToken)).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e: Exception =>
         logger.error("[securesocial] error retrieving profile information from Instagram", e)

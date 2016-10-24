@@ -20,6 +20,7 @@ import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
 import securesocial.plugin.services.RoutesService
+import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 
 import scala.concurrent.Future
 
@@ -48,8 +49,8 @@ class FoursquareProvider(routesService: RoutesService,
 
   override val id = FoursquareProvider.Foursquare
 
-  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
-    client.retrieveProfile(GetAuthenticatedUser.format(info.accessToken)).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       (me \ "response" \ "user").asOpt[String] match {
         case Some(msg) =>
           logger.error("[securesocial] error retrieving profile information from Foursquare. Message = %s".format(msg))
@@ -62,9 +63,13 @@ class FoursquareProvider(routesService: RoutesService,
           val avatarUrlPart2 = (me \ Response \ User \ AvatarUrl \ Suffix).asOpt[String]
           val avatarUrl = for (prefix <- avatarUrlPart1; postfix <- avatarUrlPart2) yield prefix + "100x100" + postfix
           val email = (me \ Response \ User \ Contact \ Email).asOpt[String].filter(!_.isEmpty)
-          BasicProfile(id, userId, firstName, lastName, None, email, avatarUrl, authMethod, oAuth2Info = Some(info))
+          JsSuccess(BasicProfile(id, userId, firstName, lastName, None, email, avatarUrl, authMethod))
       }
-    } recover {
+    }
+  }
+
+  def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](GetAuthenticatedUser.format(info.accessToken)).map(_.copy(oAuth2Info = Some(info))) recover {
       case e: AuthenticationException => throw e
       case e =>
         logger.error("[securesocial] error retrieving profile information from Foursquare", e)

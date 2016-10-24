@@ -20,6 +20,7 @@ import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
 import play.api.libs.oauth.{ RequestToken, OAuthCalculator }
+import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
 import play.api.Logger
 import TwitterProvider._
@@ -39,13 +40,17 @@ class TwitterProvider(
 ) {
   override val id = TwitterProvider.Twitter
 
-  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
-    client.retrieveProfile(TwitterProvider.VerifyCredentials, info).map { me =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(me: JsValue): JsResult[BasicProfile] = {
       val userId = (me \ Id).as[String]
       val name = (me \ Name).asOpt[String]
       val avatar = (me \ ProfileImage).asOpt[String]
-      BasicProfile(id, userId, None, None, name, None, avatar, authMethod, Some(info))
-    } recover {
+      JsSuccess(BasicProfile(id, userId, None, None, name, None, avatar, authMethod))
+    }
+  }
+
+  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](TwitterProvider.VerifyCredentials, info).map(_.copy(oAuth1Info = Some(info))) recover {
       case e =>
         logger.error("[securesocial] error retrieving profile information from Twitter", e)
         throw new AuthenticationException()

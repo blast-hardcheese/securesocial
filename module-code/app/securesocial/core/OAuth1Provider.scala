@@ -29,7 +29,7 @@ import play.api.libs.oauth.OAuth
 import play.api.libs.oauth.ServiceInfo
 import play.api.libs.oauth.RequestToken
 import play.api.libs.oauth.ConsumerKey
-import play.api.libs.json.JsValue
+import play.api.libs.json.{ JsValue, Reads }
 
 /**
  * A trait that allows mocking the OAuth 1 client
@@ -42,7 +42,7 @@ trait OAuth1Client[Response] {
 
   def redirectUrl(token: String): String
 
-  def retrieveProfile(url: String, info: OAuth1Info): Future[JsValue]
+  def retrieveProfile[T](url: String, info: OAuth1Info)(implicit ev: Response => T): Future[T]
 
   implicit def executionContext: ExecutionContext
 }
@@ -73,7 +73,7 @@ object OAuth1Client {
     }
 
     override def retrieveProfile[T](url: String, info: OAuth1Info)(implicit ev: WSResponse => T): Future[T] =
-      httpService.url(url).sign(OAuthCalculator(serviceInfo.key, RequestToken(info.token, info.secret))).get().map(_.json)
+      httpService.url(url).sign(OAuthCalculator(serviceInfo.key, RequestToken(info.token, info.secret))).get().map(ev(_))
   }
 }
 
@@ -170,6 +170,8 @@ abstract class OAuth1Provider(
       }
     }
   }
+
+  implicit def resp2BasicProfile(implicit ev: Reads[BasicProfile]): WSResponse => BasicProfile = _.json.as[BasicProfile]
 
   def fillProfile(info: OAuth1Info): Future[BasicProfile]
 }

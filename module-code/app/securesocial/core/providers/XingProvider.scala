@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.providers
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -37,8 +37,8 @@ class XingProvider(
 
   override val id = XingProvider.Xing
 
-  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
-    client.retrieveProfile(XingProvider.VerifyCredentials, info).map { json =>
+  implicit val profileReads = new Reads[BasicProfile] {
+    def reads(json: JsValue): JsResult[BasicProfile] = {
       val me = (json \ Users).as[Seq[JsObject]].head
       val userId = (me \ Id).as[String]
       val displayName = (me \ Name).asOpt[String]
@@ -46,8 +46,12 @@ class XingProvider(
       val firstName = (me \ FirstName).asOpt[String]
       val profileImage = (me \ ProfileImage \ Large).asOpt[String]
       val email = (me \ ActiveEmail).asOpt[String]
-      BasicProfile(id, userId, displayName, firstName, lastName, email, profileImage, authMethod, Some(info))
-    } recover {
+      JsSuccess(BasicProfile(id, userId, displayName, firstName, lastName, email, profileImage, authMethod))
+    }
+  }
+
+  override def fillProfile(info: OAuth1Info): Future[BasicProfile] = {
+    client.retrieveProfile[BasicProfile](XingProvider.VerifyCredentials, info).map(_.copy(oAuth1Info = Some(info))) recover {
       case e =>
         logger.error("[securesocial] error retrieving profile information from Xing", e)
         throw new AuthenticationException()
