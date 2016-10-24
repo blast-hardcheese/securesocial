@@ -16,13 +16,15 @@
  */
 package securesocial.plugin.services
 
+import securesocial.core.FrameworkTypes
+
 import scala.concurrent.ExecutionContext
 
 /**
  * A mockable interface for the http client
  */
-trait HttpService[Request, Response] {
-  def url(url: String): Request
+trait HttpService[Types <: FrameworkTypes] {
+  def url(url: String): Types#HttpRequest
 }
 
 object HttpService {
@@ -31,7 +33,8 @@ object HttpService {
    * A default implementation for HttpService based on the Play WS client.
    */
   import play.api.libs.ws.{ WSRequest, WSResponse }
-  class Default extends HttpService[WSRequest, WSResponse] {
+  import securesocial.PlayTypes
+  class Default extends HttpService[PlayTypes] {
     import play.api.Play.current
     import play.api.libs.ws.WS
 

@@ -30,23 +30,24 @@ import securesocial.plugin.services.{ HttpService, RoutesService }
 import scala.collection.JavaConversions._
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait OAuth2Client {
+trait OAuth2Client[Types <: FrameworkTypes] {
   val settings: OAuth2Settings
-  val httpService: HttpService[WSRequest, WSResponse]
+  val httpService: HttpService[Types]
 
   def exchangeCodeForToken(code: String, callBackUrl: String, builder: OAuth2InfoBuilder): Future[OAuth2Info]
 
-  def retrieveProfile[T](profileUrl: String)(implicit ev: WSResponse => T): Future[T]
+  def retrieveProfile[T](profileUrl: String)(implicit ev: Types#HttpResponse => T): Future[T]
 
-  type OAuth2InfoBuilder = WSResponse => OAuth2Info
+  type OAuth2InfoBuilder = Types#HttpResponse => OAuth2Info
 
   implicit def executionContext: ExecutionContext
 }
 
 object OAuth2Client {
 
-  class Default(val httpService: HttpService[WSRequest, WSResponse], val settings: OAuth2Settings)(implicit val executionContext: ExecutionContext)
-      extends OAuth2Client {
+  import securesocial.PlayTypes
+  class Default(val httpService: HttpService[PlayTypes], val settings: OAuth2Settings)(implicit val executionContext: ExecutionContext)
+      extends OAuth2Client[PlayTypes] {
 
     override def exchangeCodeForToken(code: String, callBackUrl: String, builder: OAuth2InfoBuilder): Future[OAuth2Info] = {
       val params = Map(
@@ -66,9 +67,9 @@ object OAuth2Client {
 /**
  * Base class for all OAuth2 providers
  */
-abstract class OAuth2Provider(
+abstract class OAuth2Provider[Types <: FrameworkTypes](
   routesService: RoutesService,
-  client: OAuth2Client,
+  client: OAuth2Client[Types],
   cacheService: CacheService)
     extends IdentityProvider with ApiSupport {
 

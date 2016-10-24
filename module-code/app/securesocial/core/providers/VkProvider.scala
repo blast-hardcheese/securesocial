@@ -1,6 +1,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
+import securesocial.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -13,7 +14,7 @@ import scala.concurrent.Future
  */
 class VkProvider(routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth2Client)
+  client: OAuth2Client[PlayTypes])
     extends OAuth2Provider(routesService, client, cacheService) {
   val GetProfilesApi = "https://api.vk.com/method/getProfiles?fields=uid,first_name,last_name,photo&access_token="
   val Response = "response"

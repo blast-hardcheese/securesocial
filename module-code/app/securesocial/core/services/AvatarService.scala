@@ -16,6 +16,8 @@
  */
 package securesocial.plugin.services
 
+import securesocial.PlayTypes
+
 import play.api.libs.ws.{ WSRequest, WSResponse }
 
 import scala.concurrent.{ ExecutionContext, Future }
@@ -33,7 +35,7 @@ object AvatarService {
    * A default implemtation
    * @param httpService
    */
-  class Default(httpService: HttpService[WSRequest, WSResponse])(implicit val executionContext: ExecutionContext) extends AvatarService {
+  class Default(httpService: HttpService[PlayTypes])(implicit val executionContext: ExecutionContext) extends AvatarService {
     import _root_.java.security.MessageDigest
 
     private val logger = play.api.Logger("securesocial.plugin.providers.utils.AvatarService.Default")

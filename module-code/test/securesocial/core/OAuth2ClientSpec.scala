@@ -1,5 +1,6 @@
 package securesocial.plugin
 
+import securesocial.PlayTypes
 import securesocial.core._
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mock.Mockito
@@ -48,7 +49,7 @@ class OAuth2ClientSpec extends Specification with Mockito {
     }
 
   }
-  private def aDefaultClient(httpService: HttpService[WSRequest, WSResponse] = new MockHttpService()) = {
+  private def aDefaultClient(httpService: HttpService[PlayTypes] = new MockHttpService()) = {
     new OAuth2Client.Default(httpService, fakeOAuth2Settings) {
     }
   }

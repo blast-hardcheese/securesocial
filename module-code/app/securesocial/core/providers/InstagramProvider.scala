@@ -17,6 +17,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
+import securesocial.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -30,7 +31,7 @@ import scala.concurrent.Future
  */
 class InstagramProvider(routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth2Client)
+  client: OAuth2Client[PlayTypes])
     extends OAuth2Provider(routesService, client, cacheService) {
   val GetAuthenticatedUser = "https://api.instagram.com/v1/users/self?access_token=%s"
   val AccessToken = "access_token"

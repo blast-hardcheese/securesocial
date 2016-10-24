@@ -5,6 +5,7 @@ import play.api.http.{ ContentTypeOf, Writeable, HeaderNames }
 import play.api.libs.ws._
 import play.api.http.Status._
 import scala.concurrent.Future
+import securesocial.PlayTypes
 import securesocial.plugin.services.HttpService
 import org.mockito.Answers.RETURNS_DEEP_STUBS
 import org.mockito.Mockito.withSettings
@@ -15,7 +16,7 @@ object MockHttpService {
   type ContentTypeOfParams = ContentTypeOf[Params]
 }
 
-class MockHttpService extends Mockito with HttpService[WSRequest, WSResponse] {
+class MockHttpService extends Mockito with HttpService[PlayTypes] {
 
   val request = mock[WSRequest].as(s"Request($hashCode)")
   val response = mock[WSResponse].as(s"Response($hashCode)")

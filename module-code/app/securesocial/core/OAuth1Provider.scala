@@ -53,7 +53,8 @@ object OAuth1Client {
    * @param serviceInfo
    */
   import play.api.libs.ws.{ WSRequest, WSResponse }
-  class Default(val serviceInfo: ServiceInfo, val httpService: HttpService[WSRequest, WSResponse])(implicit val executionContext: ExecutionContext) extends OAuth1Client[WSResponse] {
+  import securesocial.PlayTypes
+  class Default(val serviceInfo: ServiceInfo, val httpService: HttpService[PlayTypes])(implicit val executionContext: ExecutionContext) extends OAuth1Client[WSResponse] {
     private[plugin] val client = OAuth(serviceInfo, use10a = true)
     override def redirectUrl(token: String): String = client.redirectUrl(token)
 

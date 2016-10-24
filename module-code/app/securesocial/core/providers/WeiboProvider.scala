@@ -18,6 +18,7 @@ package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsValue, JsObject, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.{ WS, WSResponse }
+import securesocial.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -31,7 +32,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  */
 class WeiboProvider(routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth2Client)
+  client: OAuth2Client[PlayTypes])
     extends OAuth2Provider(routesService, client, cacheService) {
   val GetAuthenticatedUser = "https://api.weibo.com/2/users/show.json?uid=%s&access_token=%s"
   val AccessToken = "access_token"

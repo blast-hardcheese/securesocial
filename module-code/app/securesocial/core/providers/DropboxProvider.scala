@@ -19,6 +19,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.ws.WS
+import securesocial.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -32,7 +33,7 @@ import scala.concurrent.Future
  */
 class DropboxProvider(routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth2Client)
+  client: OAuth2Client[PlayTypes])
     extends OAuth2Provider(routesService, client, cacheService) {
   private val Logger = play.api.Logger("securesocial.plugin.providers.DropboxProvider")
   override val id = DropboxProvider.Dropbox
