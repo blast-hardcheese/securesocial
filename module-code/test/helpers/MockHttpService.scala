@@ -18,7 +18,7 @@ object MockHttpService {
 class MockHttpService extends Mockito with HttpService[WSRequest, WSResponse] {
 
   val request = mock[WSRequest].as(s"Request($hashCode)")
-  val response = mock[WSResponse].as(s"Response($hashCode")
+  val response = mock[WSResponse].as(s"Response($hashCode)")
 
   val urls: collection.mutable.Buffer[String] = new collection.mutable.ArrayBuffer[String]()
 
