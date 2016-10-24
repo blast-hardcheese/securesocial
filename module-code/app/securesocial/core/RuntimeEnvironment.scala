@@ -1,5 +1,7 @@
 package securesocial.plugin
 
+import play.api.libs.ws.{ WSRequest, WSResponse }
+
 import securesocial.controllers.{ MailTemplates, ViewTemplates }
 import securesocial.core.authenticator._
 import securesocial.core.services._
@@ -29,7 +31,7 @@ trait RuntimeEnvironment {
   def passwordHashers: Map[String, PasswordHasher]
   def passwordValidator: PasswordValidator
 
-  def httpService: HttpService
+  def httpService: HttpService[WSRequest, WSResponse]
   def cacheService: CacheService
   def avatarService: Option[AvatarService]
 
@@ -62,7 +64,7 @@ object RuntimeEnvironment {
     override lazy val passwordHashers: Map[String, PasswordHasher] = Map(currentHasher.id -> currentHasher)
     override lazy val passwordValidator: PasswordValidator = new PasswordValidator.Default()
 
-    override lazy val httpService: HttpService = new HttpService.Default
+    override lazy val httpService: HttpService[WSRequest, WSResponse] = new HttpService.Default
     override lazy val cacheService: CacheService = new CacheService {
       import play.api.cache.Cache
       import scala.reflect.ClassTag
@@ -93,7 +95,7 @@ object RuntimeEnvironment {
     override lazy val eventListeners: Seq[EventListener] = Seq()
 
     protected def include(p: IdentityProvider) = p.id -> p
-    protected def oauth1ClientFor(provider: String) = new OAuth1Client.Default(ServiceInfoHelper.forProvider(provider), httpService)
+    protected def oauth1ClientFor(provider: String): OAuth1Client[WSResponse] = new OAuth1Client.Default(ServiceInfoHelper.forProvider(provider), httpService)
     protected def oauth2ClientFor(provider: String) = new OAuth2Client.Default(httpService, OAuth2Settings.forProvider(provider))
 
     override lazy val providers = ListMap(

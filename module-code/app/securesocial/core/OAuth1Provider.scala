@@ -34,7 +34,7 @@ import play.api.libs.json.JsValue
 /**
  * A trait that allows mocking the OAuth 1 client
  */
-trait OAuth1Client {
+trait OAuth1Client[Response] {
 
   def retrieveRequestToken(callbackURL: String): Future[RequestToken]
 
@@ -52,7 +52,8 @@ object OAuth1Client {
    * A default implementation based on the Play client
    * @param serviceInfo
    */
-  class Default(val serviceInfo: ServiceInfo, val httpService: HttpService)(implicit val executionContext: ExecutionContext) extends OAuth1Client {
+  import play.api.libs.ws.{ WSRequest, WSResponse }
+  class Default(val serviceInfo: ServiceInfo, val httpService: HttpService[WSRequest, WSResponse])(implicit val executionContext: ExecutionContext) extends OAuth1Client[WSResponse] {
     private[plugin] val client = OAuth(serviceInfo, use10a = true)
     override def redirectUrl(token: String): String = client.redirectUrl(token)
 
@@ -71,7 +72,7 @@ object OAuth1Client {
       client.retrieveRequestToken(callbackURL)
     }
 
-    override def retrieveProfile(url: String, info: OAuth1Info): Future[JsValue] =
+    override def retrieveProfile[T](url: String, info: OAuth1Info)(implicit ev: WSResponse => T): Future[T] =
       httpService.url(url).sign(OAuthCalculator(serviceInfo.key, RequestToken(info.token, info.secret))).get().map(_.json)
   }
 }
@@ -103,13 +104,14 @@ object ServiceInfoHelper {
   }
 }
 
+import play.api.libs.ws.WSResponse
 /**
  * Base class for all OAuth1 providers
  */
 abstract class OAuth1Provider(
   routesService: RoutesService,
   cacheService: CacheService,
-  val client: OAuth1Client)
+  val client: OAuth1Client[WSResponse])
     extends IdentityProvider {
 
   protected implicit val executionContext = client.executionContext

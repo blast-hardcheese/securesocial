@@ -21,7 +21,7 @@ import _root_.java.util.UUID
 
 import play.api.Play
 import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json }
-import play.api.libs.ws.WSResponse
+import play.api.libs.ws.{ WSRequest, WSResponse }
 import play.api.mvc._
 import securesocial.core._
 import securesocial.core.services.CacheService
@@ -32,7 +32,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 trait OAuth2Client {
   val settings: OAuth2Settings
-  val httpService: HttpService
+  val httpService: HttpService[WSRequest, WSResponse]
 
   def exchangeCodeForToken(code: String, callBackUrl: String, builder: OAuth2InfoBuilder): Future[OAuth2Info]
 
@@ -45,7 +45,7 @@ trait OAuth2Client {
 
 object OAuth2Client {
 
-  class Default(val httpService: HttpService, val settings: OAuth2Settings)(implicit val executionContext: ExecutionContext)
+  class Default(val httpService: HttpService[WSRequest, WSResponse], val settings: OAuth2Settings)(implicit val executionContext: ExecutionContext)
       extends OAuth2Client {
 
     override def exchangeCodeForToken(code: String, callBackUrl: String, builder: OAuth2InfoBuilder): Future[OAuth2Info] = {
