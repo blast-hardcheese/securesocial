@@ -19,6 +19,7 @@ package securesocial.plugin.providers
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
+import securesocial.adapters.PlayAdapter.PlayTypes
 import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.oauth.{ RequestToken, OAuthCalculator }
 import play.api.libs.ws.WSResponse
@@ -33,7 +34,8 @@ import securesocial.plugin.services.RoutesService
 class LinkedInProvider(
   routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth1Client[WSResponse]) extends OAuth1Provider(
+  client: OAuth1Client[WSResponse])(
+    implicit Framework: Framework[PlayTypes]) extends OAuth1Provider[PlayTypes](
   routesService,
   cacheService,
   client

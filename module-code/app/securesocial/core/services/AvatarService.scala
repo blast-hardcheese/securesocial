@@ -16,7 +16,7 @@
  */
 package securesocial.plugin.services
 
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter.PlayTypes
 
 import play.api.libs.ws.{ WSRequest, WSResponse }
 

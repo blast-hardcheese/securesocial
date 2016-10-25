@@ -12,6 +12,7 @@ import play.api.mvc._
 import play.api.test._
 import play.api.test.Helpers._
 import play.twirl.api.Html
+import securesocial.adapters.PlayAdapter._
 import securesocial.controllers.ViewTemplates
 import securesocial.core.services._
 import securesocial.plugin.AuthenticationResult

@@ -1,6 +1,6 @@
 package securesocial.plugin
 
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter.PlayTypes
 import securesocial.core._
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification

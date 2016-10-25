@@ -2,7 +2,7 @@ package securesocial.plugin
 
 import play.api.libs.ws.{ WSRequest, WSResponse }
 
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter._
 import securesocial.controllers.{ MailTemplates, ViewTemplates }
 import securesocial.core.authenticator._
 import securesocial.core.services._
@@ -36,7 +36,7 @@ trait RuntimeEnvironment {
   def cacheService: CacheService
   def avatarService: Option[AvatarService]
 
-  def providers: Map[String, IdentityProvider]
+  def providers: Map[String, IdentityProvider[PlayTypes]]
 
   def idGenerator: IdGenerator
   def authenticatorService: AuthenticatorService[U]
@@ -95,7 +95,7 @@ object RuntimeEnvironment {
 
     override lazy val eventListeners: Seq[EventListener] = Seq()
 
-    protected def include(p: IdentityProvider) = p.id -> p
+    protected def include(p: IdentityProvider[PlayTypes]) = p.id -> p
     protected def oauth1ClientFor(provider: String): OAuth1Client[WSResponse] = new OAuth1Client.Default(ServiceInfoHelper.forProvider(provider), httpService)
     protected def oauth2ClientFor(provider: String): OAuth2Client[PlayTypes] = new OAuth2Client.Default(httpService, OAuth2Settings.forProvider(provider))
 

@@ -41,6 +41,7 @@ class ProviderController @Inject() (override implicit val env: RuntimeEnvironmen
  */
 trait BaseProviderController extends SecureSocial {
   import securesocial.controllers.ProviderControllerHelper.{ logger, toUrl }
+  import securesocial.adapters.PlayAdapter._
 
   /**
    * The authentication entry point for GET requests
@@ -92,8 +93,9 @@ trait BaseProviderController extends SecureSocial {
     val authenticationFlow = request.user.isEmpty
     val modifiedSession = overrideOriginalUrl(request.session, redirectTo)
 
-    env.providers.get(provider).map {
-      _.authenticate().flatMap {
+    env.providers.get(provider).map { p =>
+      import p.Framework._
+      p.authenticate().flatMap {
         case denied: AuthenticationResult.AccessDenied =>
           Future.successful(Redirect(env.routes.accessDeniedUrl).flashing("error" -> Messages("securesocial.login.accessDenied")))
         case failed: AuthenticationResult.Failed =>

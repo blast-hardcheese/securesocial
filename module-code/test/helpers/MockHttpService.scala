@@ -5,7 +5,7 @@ import play.api.http.{ ContentTypeOf, Writeable, HeaderNames }
 import play.api.libs.ws._
 import play.api.http.Status._
 import scala.concurrent.Future
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter.PlayTypes
 import securesocial.plugin.services.HttpService
 import org.mockito.Answers.RETURNS_DEEP_STUBS
 import org.mockito.Mockito.withSettings

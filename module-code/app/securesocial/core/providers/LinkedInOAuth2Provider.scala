@@ -17,7 +17,7 @@
 package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._
@@ -31,7 +31,8 @@ import scala.concurrent.Future
  */
 class LinkedInOAuth2Provider(routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth2Client[PlayTypes])
+  client: OAuth2Client[PlayTypes])(
+    implicit Framework: Framework[PlayTypes])
     extends OAuth2Provider(routesService, client, cacheService) {
   override val id = LinkedInOAuth2Provider.LinkedIn
 

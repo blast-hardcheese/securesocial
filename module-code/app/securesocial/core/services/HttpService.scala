@@ -33,7 +33,7 @@ object HttpService {
    * A default implementation for HttpService based on the Play WS client.
    */
   import play.api.libs.ws.{ WSRequest, WSResponse }
-  import securesocial.PlayTypes
+  import securesocial.adapters.PlayAdapter.PlayTypes
   class Default extends HttpService[PlayTypes] {
     import play.api.Play.current
     import play.api.libs.ws.WS

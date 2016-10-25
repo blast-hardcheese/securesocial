@@ -18,7 +18,7 @@ package securesocial.plugin.providers
 
 import play.api.libs.json.{ JsValue, JsResult, JsSuccess, Reads }
 import play.api.libs.ws.WSResponse
-import securesocial.PlayTypes
+import securesocial.adapters.PlayAdapter.PlayTypes
 import securesocial.core._
 import securesocial.core.services.CacheService
 import securesocial.plugin._

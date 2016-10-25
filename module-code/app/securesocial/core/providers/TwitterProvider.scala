@@ -33,7 +33,7 @@ import securesocial.plugin.services.{ RoutesService, HttpService }
 class TwitterProvider(
   routesService: RoutesService,
   cacheService: CacheService,
-  client: OAuth1Client[WSResponse]) extends OAuth1Provider(
+  client: OAuth1Client[WSResponse]) extends OAuth1Provider[securesocial.adapters.PlayAdapter.PlayTypes](
   routesService,
   cacheService,
   client

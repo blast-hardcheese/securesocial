@@ -30,7 +30,7 @@ import securesocial.plugin.services.{ HttpService, RoutesService }
 import scala.collection.JavaConversions._
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait OAuth2Client[Types <: FrameworkTypes] {
+abstract class OAuth2Client[Types <: FrameworkTypes](implicit Framework: Framework[Types]) {
   val settings: OAuth2Settings
   val httpService: HttpService[Types]
 
@@ -45,7 +45,7 @@ trait OAuth2Client[Types <: FrameworkTypes] {
 
 object OAuth2Client {
 
-  import securesocial.PlayTypes
+  import securesocial.adapters.PlayAdapter._
   class Default(val httpService: HttpService[PlayTypes], val settings: OAuth2Settings)(implicit val executionContext: ExecutionContext)
       extends OAuth2Client[PlayTypes] {
 
@@ -70,7 +70,8 @@ object OAuth2Client {
 abstract class OAuth2Provider[Types <: FrameworkTypes](
   routesService: RoutesService,
   client: OAuth2Client[Types],
-  cacheService: CacheService)
+  cacheService: CacheService)(
+    implicit Framework: Framework[Types])
     extends IdentityProvider with ApiSupport {
 
   protected implicit val executionContext: ExecutionContext = client.executionContext
@@ -89,15 +90,8 @@ abstract class OAuth2Provider[Types <: FrameworkTypes](
       }
   }
 
-  protected def buildInfo(response: WSResponse): OAuth2Info = {
-    val json = response.json
-    logger.debug("[securesocial] got json back [" + json + "]")
-    OAuth2Info(
-      (json \ OAuth2Constants.AccessToken).as[String],
-      (json \ OAuth2Constants.TokenType).asOpt[String],
-      (json \ OAuth2Constants.ExpiresIn).asOpt[Int],
-      (json \ OAuth2Constants.RefreshToken).asOpt[String]
-    )
+  protected def buildInfo(response: Types#HttpResponse): OAuth2Info = {
+    Framework.resp2OAuth2Info(response)
   }
 
   private[this] def validateOauthState(request: Request[AnyContent]): Future[Boolean] = {

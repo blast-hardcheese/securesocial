@@ -24,7 +24,8 @@ import concurrent.Future
 /**
  * Base class for all Identity Providers.
  */
-abstract class IdentityProvider {
+abstract class IdentityProvider[Types <: FrameworkTypes](implicit val Framework: Framework[Types]) {
+
   /**
    * The id for this provider.
    */

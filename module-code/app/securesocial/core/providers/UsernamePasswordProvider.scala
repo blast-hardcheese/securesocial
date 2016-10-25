@@ -28,6 +28,7 @@ import securesocial.plugin.AuthenticationResult.{ Authenticated, NavigationFlow 
 import securesocial.plugin._
 import securesocial.plugin.providers.utils.PasswordHasher
 import securesocial.plugin.services.AvatarService
+import securesocial.adapters.PlayAdapter.PlayTypes
 
 import scala.concurrent.{ ExecutionContext, Future }
 
@@ -37,8 +38,8 @@ import scala.concurrent.{ ExecutionContext, Future }
 class UsernamePasswordProvider[U](userService: UserService[U],
   avatarService: Option[AvatarService],
   viewTemplates: ViewTemplates,
-  passwordHashers: Map[String, PasswordHasher])(implicit val executionContext: ExecutionContext)
-    extends IdentityProvider with ApiSupport with Controller {
+  passwordHashers: Map[String, PasswordHasher])(implicit val executionContext: ExecutionContext, Framework: Framework[PlayTypes])
+    extends IdentityProvider[securesocial.adapters.PlayAdapter.PlayTypes] with ApiSupport with Controller {
 
   override val id = UsernamePasswordProvider.UsernamePassword
 

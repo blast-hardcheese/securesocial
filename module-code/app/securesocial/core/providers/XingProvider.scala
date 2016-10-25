@@ -33,7 +33,7 @@ class XingProvider(
   routesService: RoutesService,
   cacheService: CacheService,
   client: OAuth1Client[WSResponse])
-    extends OAuth1Provider(routesService, cacheService, client) {
+    extends OAuth1Provider[securesocial.adapters.PlayAdapter.PlayTypes](routesService, cacheService, client) {
 
   override val id = XingProvider.Xing
 
